@@ -1,0 +1,13 @@
+make a wireframe using Figma:
+https://www.youtube.com/watch?v=D4NyQ5iOMF0
+-Use rectangles to represent visual elements: (0:37)
+-Use text boxes to represent text elements: (4:07)
+-Use the pen tool to sketch icons: (5:43)
+
+make a mockup using Figma:
+https://www.youtube.com/watch?v=oZAKb_gs2Uo
+-Creating shape elements in mockup: (0:30)
+-Creating text elements in mockup: (4:24)
+-Common scenarios: (5:31)
+-Creating icons in mockup: (9:25)
+-Creating system elements in mockup: (11:50)
