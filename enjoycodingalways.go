@@ -15,19 +15,3 @@ func main() {
 		log.Fatal("Error with ListenAndServe:", err)
 	}
 }
-
-func handleHome(w http.ResponseWriter, r *http.Request) {
-
-}
-
-func handleProjects(w http.ResponseWriter, r *http.Request) {
-
-}
-
-func handleDoc(w http.ResponseWriter, r *http.Request) {
-
-}
-
-func handleAbout(w http.ResponseWriter, r *http.Request) {
-
-}
