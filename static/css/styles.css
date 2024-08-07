@@ -36,6 +36,7 @@ nav {
 }
 
 nav a {
+    padding-left: 20px;
     font-size: 10px;
 }
 
