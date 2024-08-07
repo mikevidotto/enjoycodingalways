@@ -2,6 +2,42 @@ package main
 
 import "time"
 
+templ fullPage(date time.Time, title string, body string, path string) {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Michael Vidotto">
+    <meta name="description" content="A website where you can post articles.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800" rel="stylesheet">
+    <title>Enjoy Coding Always</title>
+</head>
+<body>
+
+    @header()
+
+    switch path {
+        case "/", "/index.html":
+            @HomeMain(date, title, body)
+        case "/projects.html":
+            @ProjectsMain()
+        case "/documentation.html":
+            @DocumentationMain(date, title, body)
+        case "/about.html":
+            @AboutMain()
+        default:
+
+    }
+
+    @footer()
+
+</body>
+</html>
+}
+
 templ HomeMain(date time.Time, title string, body string) {
     <main>
         @homePanel() 
@@ -10,7 +46,7 @@ templ HomeMain(date time.Time, title string, body string) {
     </main>
 }
 
-templ ProjectsMain() {
+templ ProjectsMain() {  
     <main>
         @recentProject()
         <div id="projects">
@@ -100,7 +136,7 @@ templ notFoundComponent() {
 
 
 ////////////////////////////////////////// INDEX PAGE //////////////////////////////////////////
-templ index(date time.Time, title string, body string) {
+templ index(date time.Time, title string, body string, path string) {
     <style type="text/css">
 		* {
     margin: 0;
@@ -119,6 +155,14 @@ header {
     align-items: center;
     /* box-shadow: 0 -6px 5px 5px rgba(0,0,0,0.5); */
     padding-bottom: 100px;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 20px;
 }
 
 #logo {
@@ -241,528 +285,6 @@ a {
 
 }
 	</style>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="author" content="Michael Vidotto">
-    <meta name="description" content="Enjoy Coding Always home page">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800" rel="stylesheet">
-    <title>Home</title>
-</head>
-<body>
 
-    @header()
-
-    @HomeMain(date, title, body)
-
-    @footer()
-</body>
-</html>
-}
-
-
-////////////////////////////////////////// PROJECTS PAGE //////////////////////////////////////////
-templ projects(date time.Time, title string, body string) {
-    <style type="text/css">
-		* {
-    margin: 0;
-    padding: 0;
-    font-family: Newsreader;
-    font-weight: 450;
-}
-
-header {
-    padding: 20px;
-    height: 30px;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    /* box-shadow: 0 -6px 5px 5px rgba(0,0,0,0.5); */
-    padding-bottom: 100px;
-}
-
-#logo {
-    color:#426B1F;
-    width: 50%;    
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding-left: 50px;
-}
-
-nav {
-    height: 100%;
-    width: 50%;
-    display: flex;
-    flex-direction:row;
-    justify-content: center;
-    align-items: center;
-}
-
-nav a {
-    padding-left: 20px;
-    font-size: 10px;
-}
-
-a {
-    text-decoration: none;
-    color:black; 
-}
-
-#home-text {
-    display:flex;
-    flex-direction: column;
-    align-items:center;
-    justify-content: center;
-}
-
-#home-text h1 {
-    padding-bottom: 10px;
-    font-size: 250%;
-}
-
-#browse-btn {
-    text-decoration: none;
-    padding: 5px;
-    margin: 50px;
-    border-radius: 5px;
-    background-color: rgb(241, 241, 241);
-    color: rgb(0, 0, 0);
-    font-family: Arial, Helvetica, sans-serif;
-    font-style:bold;
-    width: 170px;
-    height: 35px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    background-color: #426B1F
-}
-
-#recent-project {
-    margin: 50px;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.article {
-    padding: 50px;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-direction:column;
-}
-
-.project-title {
-    margin: 10px;
-    font-weight: 700;
-}
-
-.project-image {
-    border-radius: 10px;
-}
-
-#projects {
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.project-deck {
-    width: 50%;
-    padding: 20px;
-    display:flex;
-    flex-direction: row;
-    align-items:center;
-    justify-content: space-around;
-}
-
-.project-card {
-    border-radius: 10px;
-    width: 150px;
-    height: 150px;
-    background-color: rgb(237, 237, 237);
-}
-
-.article h6 {
-
-}
-
-.article h1 {
-    font-weight:700;
-    padding: 10px;
-}
-
-.article h5 {
-
-}
-	</style>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="author" content="Michael Vidotto">
-    <meta name="description" content="Enjoy Coding Always home page">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800" rel="stylesheet">
-
-    <title>Projects</title> 
-</head>
-<body>
-
-    @header()
-
-    @ProjectsMain()
-
-    <footer></footer>
-</body>
-</html>
-}
-
-////////////////////////////////////////// DOCUMENTATION PAGE //////////////////////////////////////////
-templ documentation(date time.Time, title string, body string) {
-    <style type="text/css">
-		* {
-    margin: 0;
-    padding: 0;
-    font-family: Newsreader;
-    font-weight: 450;
-}
-
-header {
-    padding: 20px;
-    height: 30px;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    /* box-shadow: 0 -6px 5px 5px rgba(0,0,0,0.5); */
-    padding-bottom: 100px;
-}
-
-#logo {
-    color:#426B1F;
-    width: 50%;    
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding-left: 50px;
-}
-
-nav {
-    height: 100%;
-    width: 50%;
-    display: flex;
-    flex-direction:row;
-    justify-content: center;
-    align-items: center;
-}
-
-nav a {
-    padding-left: 20px;
-    font-size: 10px;
-}
-
-a {
-    text-decoration: none;
-    color:black; 
-}
-
-#home-text {
-    display:flex;
-    flex-direction: column;
-    align-items:center;
-    justify-content: center;
-}
-
-#home-text h1 {
-    padding-bottom: 10px;
-    font-size: 250%;
-}
-
-#browse-btn {
-    text-decoration: none;
-    padding: 5px;
-    margin: 50px;
-    border-radius: 5px;
-    background-color: rgb(241, 241, 241);
-    color: rgb(0, 0, 0);
-    font-family: Arial, Helvetica, sans-serif;
-    font-style:bold;
-    width: 170px;
-    height: 35px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    background-color: #426B1F
-}
-
-#recent-project {
-    margin: 50px;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.article {
-    padding: 50px;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-direction:column;
-}
-
-.project-title {
-    margin: 10px;
-    font-weight: 700;
-}
-
-.project-image {
-    border-radius: 10px;
-}
-
-#projects {
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.project-deck {
-    width: 50%;
-    padding: 20px;
-    display:flex;
-    flex-direction: row;
-    align-items:center;
-    justify-content: space-around;
-}
-
-.project-card {
-    border-radius: 10px;
-    width: 150px;
-    height: 150px;
-    background-color: rgb(237, 237, 237);
-}
-
-.article h6 {
-
-}
-
-.article h1 {
-    font-weight:700;
-    padding: 10px;
-}
-
-.article h5 {
-
-}
-	</style>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="author" content="Michael Vidotto">
-    <meta name="description" content="Enjoy Coding Always home page">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800" rel="stylesheet">
-
-    <title>Documentation</title>
-</head>
-<body>
-
-    @header()
-
-    @DocumentationMain(date, title, body)
-
-    <footer></footer>
-</body>
-</html>
-}
-
-////////////////////////////////////////// ABOUT PAGE //////////////////////////////////////////
-templ about(date time.Time, title string, body string) {
-    <style type="text/css">
-		* {
-    margin: 0;
-    padding: 0;
-    font-family: Newsreader;
-    font-weight: 450;
-}
-
-header {
-    padding: 20px;
-    height: 30px;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    /* box-shadow: 0 -6px 5px 5px rgba(0,0,0,0.5); */
-    padding-bottom: 100px;
-}
-
-#logo {
-    color:#426B1F;
-    width: 50%;    
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding-left: 50px;
-}
-
-nav {
-    height: 100%;
-    width: 50%;
-    display: flex;
-    flex-direction:row;
-    justify-content: center;
-    align-items: center;
-}
-
-nav a {
-    padding-left: 20px;
-    font-size: 10px;
-}
-
-a {
-    text-decoration: none;
-    color:black; 
-}
-
-#home-text {
-    display:flex;
-    flex-direction: column;
-    align-items:center;
-    justify-content: center;
-}
-
-#home-text h1 {
-    padding-bottom: 10px;
-    font-size: 250%;
-}
-
-#browse-btn {
-    text-decoration: none;
-    padding: 5px;
-    margin: 50px;
-    border-radius: 5px;
-    background-color: rgb(241, 241, 241);
-    color: rgb(0, 0, 0);
-    font-family: Arial, Helvetica, sans-serif;
-    font-style:bold;
-    width: 170px;
-    height: 35px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    background-color: #426B1F
-}
-
-#recent-project {
-    margin: 50px;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.article {
-    padding: 50px;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-direction:column;
-}
-
-.project-title {
-    margin: 10px;
-    font-weight: 700;
-}
-
-.project-image {
-    border-radius: 10px;
-}
-
-#projects {
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.project-deck {
-    width: 50%;
-    padding: 20px;
-    display:flex;
-    flex-direction: row;
-    align-items:center;
-    justify-content: space-around;
-}
-
-.project-card {
-    border-radius: 10px;
-    width: 150px;
-    height: 150px;
-    background-color: rgb(237, 237, 237);
-}
-
-.article h6 {
-
-}
-
-.article h1 {
-    font-weight:700;
-    padding: 10px;
-}
-
-.article h5 {
-
-}
-	</style>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="author" content="Michael Vidotto">
-    <meta name="description" content="Enjoy Coding Always home page">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800" rel="stylesheet">
-
-    <title>About</title>
-</head>
-<body>
-
-    @header()
-
-    @AboutMain()
-
-    <footer></footer>
-</body>
-</html>
+    @fullPage(date, title, body, path)
 }

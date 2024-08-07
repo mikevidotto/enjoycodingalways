@@ -10,7 +10,7 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import "time"
 
-func HomeMain(date time.Time, title string, body string) templ.Component {
+func fullPage(date time.Time, title string, body string, path string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -26,6 +26,67 @@ func HomeMain(date time.Time, title string, body string) templ.Component {
 		templ_7745c5c3_Var1 := templ.GetChildren(ctx)
 		if templ_7745c5c3_Var1 == nil {
 			templ_7745c5c3_Var1 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"author\" content=\"Michael Vidotto\"><meta name=\"description\" content=\"A website where you can post articles.\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin><link href=\"https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800\" rel=\"stylesheet\"><title>Enjoy Coding Always</title></head><body>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = header().Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		switch path {
+		case "/", "/index.html":
+			templ_7745c5c3_Err = HomeMain(date, title, body).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		case "/projects.html":
+			templ_7745c5c3_Err = ProjectsMain().Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		case "/documentation.html":
+			templ_7745c5c3_Err = DocumentationMain(date, title, body).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		case "/about.html":
+			templ_7745c5c3_Err = AboutMain().Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		default:
+		}
+		templ_7745c5c3_Err = footer().Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</body></html>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		return templ_7745c5c3_Err
+	})
+}
+
+func HomeMain(date time.Time, title string, body string) templ.Component {
+	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+		if !templ_7745c5c3_IsBuffer {
+			defer func() {
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil {
+					templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}
+			}()
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var2 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var2 == nil {
+			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main>")
@@ -65,9 +126,9 @@ func ProjectsMain() templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var2 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var2 == nil {
-			templ_7745c5c3_Var2 = templ.NopComponent
+		templ_7745c5c3_Var3 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var3 == nil {
+			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main>")
@@ -99,9 +160,9 @@ func DocumentationMain(date time.Time, title string, body string) templ.Componen
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var3 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var3 == nil {
-			templ_7745c5c3_Var3 = templ.NopComponent
+		templ_7745c5c3_Var4 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var4 == nil {
+			templ_7745c5c3_Var4 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main>")
@@ -133,9 +194,9 @@ func AboutMain() templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var4 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var4 == nil {
-			templ_7745c5c3_Var4 = templ.NopComponent
+		templ_7745c5c3_Var5 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var5 == nil {
+			templ_7745c5c3_Var5 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main><div style=\"display: flex; flex-direction: column; justify-content: center; align-items: center;\"><h1 style=\"padding-top: 50px; padding-bottom: 100px;\">More information about us.</h1><h5>I like coding.</h5></div></main>")
@@ -159,9 +220,9 @@ func header() templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var5 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var5 == nil {
-			templ_7745c5c3_Var5 = templ.NopComponent
+		templ_7745c5c3_Var6 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var6 == nil {
+			templ_7745c5c3_Var6 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<header><div id=\"logo\"><h3>Enjoy Coding Always</h3></div><nav><a href=\"/index.html\">Home</a> <a href=\"/projects.html\">Projects</a> <a href=\"/documentation.html\">Documentation</a> <a href=\"/about.html\">About</a></nav></header>")
@@ -185,12 +246,12 @@ func footer() templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var6 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var6 == nil {
-			templ_7745c5c3_Var6 = templ.NopComponent
+		templ_7745c5c3_Var7 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var7 == nil {
+			templ_7745c5c3_Var7 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<footer></footer>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<footer>footer.</footer>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -211,9 +272,9 @@ func homePanel() templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var7 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var7 == nil {
-			templ_7745c5c3_Var7 = templ.NopComponent
+		templ_7745c5c3_Var8 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var8 == nil {
+			templ_7745c5c3_Var8 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"home-text\"><h1>Elegant <i>software,</i><br></h1><h1>Clear <i>documentation,</i><br></h1><h1>Centralized <i>knowledge.</i></h1><br><a href=\"projects.html\" id=\"browse-btn\">Browse Projects</a></div>")
@@ -237,9 +298,9 @@ func recentProject() templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var8 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var8 == nil {
-			templ_7745c5c3_Var8 = templ.NopComponent
+		templ_7745c5c3_Var9 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var9 == nil {
+			templ_7745c5c3_Var9 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"recent-project\"><h6>Currently working on...</h6><h1 class=\"project-title\">Enjoy Coding Always</h1><img src=\"./images/projectimage.png\" alt=\"project image\" width=\"700\" height=\"500\" class=\"project-image\"><h6 class=\"project-description\"></h6></div>")
@@ -263,21 +324,21 @@ func article(date time.Time, title string, body string) templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var9 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var9 == nil {
-			templ_7745c5c3_Var9 = templ.NopComponent
+		templ_7745c5c3_Var10 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var10 == nil {
+			templ_7745c5c3_Var10 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"article\"><article><h6>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var10 string
-		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(date.String())
+		var templ_7745c5c3_Var11 string
+		templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(date.String())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 89, Col: 36}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 121, Col: 36}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -285,12 +346,12 @@ func article(date time.Time, title string, body string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var11 string
-		templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(title)
+		var templ_7745c5c3_Var12 string
+		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 90, Col: 28}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 122, Col: 28}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -298,12 +359,12 @@ func article(date time.Time, title string, body string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var12 string
-		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(body)
+		var templ_7745c5c3_Var13 string
+		templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(body)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 91, Col: 27}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 123, Col: 27}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -328,21 +389,21 @@ func timeComponent(d time.Time) templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var13 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var13 == nil {
-			templ_7745c5c3_Var13 = templ.NopComponent
+		templ_7745c5c3_Var14 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var14 == nil {
+			templ_7745c5c3_Var14 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var14 string
-		templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(d.String())
+		var templ_7745c5c3_Var15 string
+		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(d.String())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 97, Col: 18}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 129, Col: 18}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -367,9 +428,9 @@ func notFoundComponent() templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var15 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var15 == nil {
-			templ_7745c5c3_Var15 = templ.NopComponent
+		templ_7745c5c3_Var16 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var16 == nil {
+			templ_7745c5c3_Var16 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div>404 - Not found</div>")
@@ -380,49 +441,8 @@ func notFoundComponent() templ.Component {
 	})
 }
 
-func index(date time.Time, title string, body string) templ.Component {
-	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
-		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-		if !templ_7745c5c3_IsBuffer {
-			defer func() {
-				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-				if templ_7745c5c3_Err == nil {
-					templ_7745c5c3_Err = templ_7745c5c3_BufErr
-				}
-			}()
-		}
-		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var16 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var16 == nil {
-			templ_7745c5c3_Var16 = templ.NopComponent
-		}
-		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style type=\"text/css\">\r\n\t\t* {\r\n    margin: 0;\r\n    padding: 0;\r\n    font-family: Newsreader;\r\n    font-weight: 450;\r\n}\r\n\r\nheader {\r\n    padding: 20px;\r\n    height: 30px;\r\n    width: 100%;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-around;\r\n    align-items: center;\r\n    /* box-shadow: 0 -6px 5px 5px rgba(0,0,0,0.5); */\r\n    padding-bottom: 100px;\r\n}\r\n\r\n#logo {\r\n    color:#426B1F;\r\n    width: 50%;    \r\n    display: flex;\r\n    justify-content: flex-start;\r\n    align-items: center;\r\n    padding-left: 50px;\r\n}\r\n\r\nnav {\r\n    height: 100%;\r\n    width: 50%;\r\n    display: flex;\r\n    flex-direction:row;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\nnav a {\r\n    padding-left: 20px;\r\n    font-size: 10px;\r\n}\r\n\r\na {\r\n    text-decoration: none;\r\n    color:black; \r\n}\r\n\r\n#home-text {\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items:center;\r\n    justify-content: center;\r\n}\r\n\r\n#home-text h1 {\r\n    padding-bottom: 10px;\r\n    font-size: 250%;\r\n}\r\n\r\n#browse-btn {\r\n    text-decoration: none;\r\n    padding: 5px;\r\n    margin: 50px;\r\n    border-radius: 5px;\r\n    background-color: rgb(241, 241, 241);\r\n    color: rgb(0, 0, 0);\r\n    font-family: Arial, Helvetica, sans-serif;\r\n    font-style:bold;\r\n    width: 170px;\r\n    height: 35px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: white;\r\n    background-color: #426B1F\r\n}\r\n\r\n#recent-project {\r\n    margin: 50px;\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.article {\r\n    padding: 50px;\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction:column;\r\n}\r\n\r\n.project-title {\r\n    margin: 10px;\r\n    font-weight: 700;\r\n}\r\n\r\n.project-image {\r\n    border-radius: 10px;\r\n}\r\n\r\n#projects {\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.project-deck {\r\n    width: 50%;\r\n    padding: 20px;\r\n    display:flex;\r\n    flex-direction: row;\r\n    align-items:center;\r\n    justify-content: space-around;\r\n}\r\n\r\n.project-card {\r\n    border-radius: 10px;\r\n    width: 150px;\r\n    height: 150px;\r\n    background-color: rgb(237, 237, 237);\r\n}\r\n\r\n.article h6 {\r\n\r\n}\r\n\r\n.article h1 {\r\n    font-weight:700;\r\n    padding: 10px;\r\n}\r\n\r\n.article h5 {\r\n\r\n}\r\n\t</style><!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"author\" content=\"Michael Vidotto\"><meta name=\"description\" content=\"Enjoy Coding Always home page\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link rel=\"stylesheet\" href=\"./css/styles.css\"><link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin><link href=\"https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800\" rel=\"stylesheet\"><title>Home</title></head><body>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = header().Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = HomeMain(date, title, body).Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = footer().Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</body></html>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		return templ_7745c5c3_Err
-	})
-}
-
-func projects(date time.Time, title string, body string) templ.Component {
+// //////////////////////////////////////// INDEX PAGE //////////////////////////////////////////
+func index(date time.Time, title string, body string, path string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -440,19 +460,11 @@ func projects(date time.Time, title string, body string) templ.Component {
 			templ_7745c5c3_Var17 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style type=\"text/css\">\r\n\t\t* {\r\n    margin: 0;\r\n    padding: 0;\r\n    font-family: Newsreader;\r\n    font-weight: 450;\r\n}\r\n\r\nheader {\r\n    padding: 20px;\r\n    height: 30px;\r\n    width: 100%;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-around;\r\n    align-items: center;\r\n    /* box-shadow: 0 -6px 5px 5px rgba(0,0,0,0.5); */\r\n    padding-bottom: 100px;\r\n}\r\n\r\n#logo {\r\n    color:#426B1F;\r\n    width: 50%;    \r\n    display: flex;\r\n    justify-content: flex-start;\r\n    align-items: center;\r\n    padding-left: 50px;\r\n}\r\n\r\nnav {\r\n    height: 100%;\r\n    width: 50%;\r\n    display: flex;\r\n    flex-direction:row;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\nnav a {\r\n    padding-left: 20px;\r\n    font-size: 10px;\r\n}\r\n\r\na {\r\n    text-decoration: none;\r\n    color:black; \r\n}\r\n\r\n#home-text {\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items:center;\r\n    justify-content: center;\r\n}\r\n\r\n#home-text h1 {\r\n    padding-bottom: 10px;\r\n    font-size: 250%;\r\n}\r\n\r\n#browse-btn {\r\n    text-decoration: none;\r\n    padding: 5px;\r\n    margin: 50px;\r\n    border-radius: 5px;\r\n    background-color: rgb(241, 241, 241);\r\n    color: rgb(0, 0, 0);\r\n    font-family: Arial, Helvetica, sans-serif;\r\n    font-style:bold;\r\n    width: 170px;\r\n    height: 35px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: white;\r\n    background-color: #426B1F\r\n}\r\n\r\n#recent-project {\r\n    margin: 50px;\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.article {\r\n    padding: 50px;\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction:column;\r\n}\r\n\r\n.project-title {\r\n    margin: 10px;\r\n    font-weight: 700;\r\n}\r\n\r\n.project-image {\r\n    border-radius: 10px;\r\n}\r\n\r\n#projects {\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.project-deck {\r\n    width: 50%;\r\n    padding: 20px;\r\n    display:flex;\r\n    flex-direction: row;\r\n    align-items:center;\r\n    justify-content: space-around;\r\n}\r\n\r\n.project-card {\r\n    border-radius: 10px;\r\n    width: 150px;\r\n    height: 150px;\r\n    background-color: rgb(237, 237, 237);\r\n}\r\n\r\n.article h6 {\r\n\r\n}\r\n\r\n.article h1 {\r\n    font-weight:700;\r\n    padding: 10px;\r\n}\r\n\r\n.article h5 {\r\n\r\n}\r\n\t</style><!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"author\" content=\"Michael Vidotto\"><meta name=\"description\" content=\"Enjoy Coding Always home page\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link rel=\"stylesheet\" href=\"css/styles.css\"><link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin><link href=\"https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800\" rel=\"stylesheet\"><title>Projects</title></head><body>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style type=\"text/css\">\r\n\t\t* {\r\n    margin: 0;\r\n    padding: 0;\r\n    font-family: Newsreader;\r\n    font-weight: 450;\r\n}\r\n\r\nheader {\r\n    padding: 20px;\r\n    height: 30px;\r\n    width: 100%;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-around;\r\n    align-items: center;\r\n    /* box-shadow: 0 -6px 5px 5px rgba(0,0,0,0.5); */\r\n    padding-bottom: 100px;\r\n}\r\n\r\nfooter {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-around;\r\n    align-items: center;\r\n    height: 20px;\r\n}\r\n\r\n#logo {\r\n    color:#426B1F;\r\n    width: 50%;    \r\n    display: flex;\r\n    justify-content: flex-start;\r\n    align-items: center;\r\n    padding-left: 50px;\r\n}\r\n\r\nnav {\r\n    height: 100%;\r\n    width: 50%;\r\n    display: flex;\r\n    flex-direction:row;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\nnav a {\r\n    padding-left: 20px;\r\n    font-size: 10px;\r\n}\r\n\r\na {\r\n    text-decoration: none;\r\n    color:black; \r\n}\r\n\r\n#home-text {\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items:center;\r\n    justify-content: center;\r\n}\r\n\r\n#home-text h1 {\r\n    padding-bottom: 10px;\r\n    font-size: 250%;\r\n}\r\n\r\n#browse-btn {\r\n    text-decoration: none;\r\n    padding: 5px;\r\n    margin: 50px;\r\n    border-radius: 5px;\r\n    background-color: rgb(241, 241, 241);\r\n    color: rgb(0, 0, 0);\r\n    font-family: Arial, Helvetica, sans-serif;\r\n    font-style:bold;\r\n    width: 170px;\r\n    height: 35px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: white;\r\n    background-color: #426B1F\r\n}\r\n\r\n#recent-project {\r\n    margin: 50px;\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.article {\r\n    padding: 50px;\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction:column;\r\n}\r\n\r\n.project-title {\r\n    margin: 10px;\r\n    font-weight: 700;\r\n}\r\n\r\n.project-image {\r\n    border-radius: 10px;\r\n}\r\n\r\n#projects {\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.project-deck {\r\n    width: 50%;\r\n    padding: 20px;\r\n    display:flex;\r\n    flex-direction: row;\r\n    align-items:center;\r\n    justify-content: space-around;\r\n}\r\n\r\n.project-card {\r\n    border-radius: 10px;\r\n    width: 150px;\r\n    height: 150px;\r\n    background-color: rgb(237, 237, 237);\r\n}\r\n\r\n.article h6 {\r\n\r\n}\r\n\r\n.article h1 {\r\n    font-weight:700;\r\n    padding: 10px;\r\n}\r\n\r\n.article h5 {\r\n\r\n}\r\n\t</style>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = header().Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = ProjectsMain().Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<footer></footer></body></html>")
+		templ_7745c5c3_Err = fullPage(date, title, body, path).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -460,78 +472,503 @@ func projects(date time.Time, title string, body string) templ.Component {
 	})
 }
 
-func documentation(date time.Time, title string, body string) templ.Component {
-	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
-		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-		if !templ_7745c5c3_IsBuffer {
-			defer func() {
-				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-				if templ_7745c5c3_Err == nil {
-					templ_7745c5c3_Err = templ_7745c5c3_BufErr
-				}
-			}()
-		}
-		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var18 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var18 == nil {
-			templ_7745c5c3_Var18 = templ.NopComponent
-		}
-		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style type=\"text/css\">\r\n\t\t* {\r\n    margin: 0;\r\n    padding: 0;\r\n    font-family: Newsreader;\r\n    font-weight: 450;\r\n}\r\n\r\nheader {\r\n    padding: 20px;\r\n    height: 30px;\r\n    width: 100%;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-around;\r\n    align-items: center;\r\n    /* box-shadow: 0 -6px 5px 5px rgba(0,0,0,0.5); */\r\n    padding-bottom: 100px;\r\n}\r\n\r\n#logo {\r\n    color:#426B1F;\r\n    width: 50%;    \r\n    display: flex;\r\n    justify-content: flex-start;\r\n    align-items: center;\r\n    padding-left: 50px;\r\n}\r\n\r\nnav {\r\n    height: 100%;\r\n    width: 50%;\r\n    display: flex;\r\n    flex-direction:row;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\nnav a {\r\n    padding-left: 20px;\r\n    font-size: 10px;\r\n}\r\n\r\na {\r\n    text-decoration: none;\r\n    color:black; \r\n}\r\n\r\n#home-text {\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items:center;\r\n    justify-content: center;\r\n}\r\n\r\n#home-text h1 {\r\n    padding-bottom: 10px;\r\n    font-size: 250%;\r\n}\r\n\r\n#browse-btn {\r\n    text-decoration: none;\r\n    padding: 5px;\r\n    margin: 50px;\r\n    border-radius: 5px;\r\n    background-color: rgb(241, 241, 241);\r\n    color: rgb(0, 0, 0);\r\n    font-family: Arial, Helvetica, sans-serif;\r\n    font-style:bold;\r\n    width: 170px;\r\n    height: 35px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: white;\r\n    background-color: #426B1F\r\n}\r\n\r\n#recent-project {\r\n    margin: 50px;\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.article {\r\n    padding: 50px;\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction:column;\r\n}\r\n\r\n.project-title {\r\n    margin: 10px;\r\n    font-weight: 700;\r\n}\r\n\r\n.project-image {\r\n    border-radius: 10px;\r\n}\r\n\r\n#projects {\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.project-deck {\r\n    width: 50%;\r\n    padding: 20px;\r\n    display:flex;\r\n    flex-direction: row;\r\n    align-items:center;\r\n    justify-content: space-around;\r\n}\r\n\r\n.project-card {\r\n    border-radius: 10px;\r\n    width: 150px;\r\n    height: 150px;\r\n    background-color: rgb(237, 237, 237);\r\n}\r\n\r\n.article h6 {\r\n\r\n}\r\n\r\n.article h1 {\r\n    font-weight:700;\r\n    padding: 10px;\r\n}\r\n\r\n.article h5 {\r\n\r\n}\r\n\t</style><!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"author\" content=\"Michael Vidotto\"><meta name=\"description\" content=\"Enjoy Coding Always home page\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link rel=\"stylesheet\" href=\"css/styles.css\"><link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin><link href=\"https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800\" rel=\"stylesheet\"><title>Documentation</title></head><body>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = header().Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = DocumentationMain(date, title, body).Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<footer></footer></body></html>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		return templ_7745c5c3_Err
-	})
-}
+// ////////////////////////////////////////// PROJECTS PAGE //////////////////////////////////////////
+// templ projects(date time.Time, title string, body string) {
+//     <style type="text/css">
+// 		* {
+//     margin: 0;
+//     padding: 0;
+//     font-family: Newsreader;
+//     font-weight: 450;
+// }
 
-func about(date time.Time, title string, body string) templ.Component {
-	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
-		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-		if !templ_7745c5c3_IsBuffer {
-			defer func() {
-				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-				if templ_7745c5c3_Err == nil {
-					templ_7745c5c3_Err = templ_7745c5c3_BufErr
-				}
-			}()
-		}
-		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var19 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var19 == nil {
-			templ_7745c5c3_Var19 = templ.NopComponent
-		}
-		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style type=\"text/css\">\r\n\t\t* {\r\n    margin: 0;\r\n    padding: 0;\r\n    font-family: Newsreader;\r\n    font-weight: 450;\r\n}\r\n\r\nheader {\r\n    padding: 20px;\r\n    height: 30px;\r\n    width: 100%;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-around;\r\n    align-items: center;\r\n    /* box-shadow: 0 -6px 5px 5px rgba(0,0,0,0.5); */\r\n    padding-bottom: 100px;\r\n}\r\n\r\n#logo {\r\n    color:#426B1F;\r\n    width: 50%;    \r\n    display: flex;\r\n    justify-content: flex-start;\r\n    align-items: center;\r\n    padding-left: 50px;\r\n}\r\n\r\nnav {\r\n    height: 100%;\r\n    width: 50%;\r\n    display: flex;\r\n    flex-direction:row;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\nnav a {\r\n    padding-left: 20px;\r\n    font-size: 10px;\r\n}\r\n\r\na {\r\n    text-decoration: none;\r\n    color:black; \r\n}\r\n\r\n#home-text {\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items:center;\r\n    justify-content: center;\r\n}\r\n\r\n#home-text h1 {\r\n    padding-bottom: 10px;\r\n    font-size: 250%;\r\n}\r\n\r\n#browse-btn {\r\n    text-decoration: none;\r\n    padding: 5px;\r\n    margin: 50px;\r\n    border-radius: 5px;\r\n    background-color: rgb(241, 241, 241);\r\n    color: rgb(0, 0, 0);\r\n    font-family: Arial, Helvetica, sans-serif;\r\n    font-style:bold;\r\n    width: 170px;\r\n    height: 35px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: white;\r\n    background-color: #426B1F\r\n}\r\n\r\n#recent-project {\r\n    margin: 50px;\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.article {\r\n    padding: 50px;\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction:column;\r\n}\r\n\r\n.project-title {\r\n    margin: 10px;\r\n    font-weight: 700;\r\n}\r\n\r\n.project-image {\r\n    border-radius: 10px;\r\n}\r\n\r\n#projects {\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.project-deck {\r\n    width: 50%;\r\n    padding: 20px;\r\n    display:flex;\r\n    flex-direction: row;\r\n    align-items:center;\r\n    justify-content: space-around;\r\n}\r\n\r\n.project-card {\r\n    border-radius: 10px;\r\n    width: 150px;\r\n    height: 150px;\r\n    background-color: rgb(237, 237, 237);\r\n}\r\n\r\n.article h6 {\r\n\r\n}\r\n\r\n.article h1 {\r\n    font-weight:700;\r\n    padding: 10px;\r\n}\r\n\r\n.article h5 {\r\n\r\n}\r\n\t</style><!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"author\" content=\"Michael Vidotto\"><meta name=\"description\" content=\"Enjoy Coding Always home page\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link rel=\"stylesheet\" href=\"css/styles.css\"><link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin><link href=\"https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800\" rel=\"stylesheet\"><title>About</title></head><body>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = header().Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = AboutMain().Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<footer></footer></body></html>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		return templ_7745c5c3_Err
-	})
-}
+// header {
+//     padding: 20px;
+//     height: 30px;
+//     width: 100%;
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: space-around;
+//     align-items: center;
+//     /* box-shadow: 0 -6px 5px 5px rgba(0,0,0,0.5); */
+//     padding-bottom: 100px;
+// }
+
+// #logo {
+//     color:#426B1F;
+//     width: 50%;
+//     display: flex;
+//     justify-content: flex-start;
+//     align-items: center;
+//     padding-left: 50px;
+// }
+
+// nav {
+//     height: 100%;
+//     width: 50%;
+//     display: flex;
+//     flex-direction:row;
+//     justify-content: center;
+//     align-items: center;
+// }
+
+// nav a {
+//     padding-left: 20px;
+//     font-size: 10px;
+// }
+
+// a {
+//     text-decoration: none;
+//     color:black;
+// }
+
+// #home-text {
+//     display:flex;
+//     flex-direction: column;
+//     align-items:center;
+//     justify-content: center;
+// }
+
+// #home-text h1 {
+//     padding-bottom: 10px;
+//     font-size: 250%;
+// }
+
+// #browse-btn {
+//     text-decoration: none;
+//     padding: 5px;
+//     margin: 50px;
+//     border-radius: 5px;
+//     background-color: rgb(241, 241, 241);
+//     color: rgb(0, 0, 0);
+//     font-family: Arial, Helvetica, sans-serif;
+//     font-style:bold;
+//     width: 170px;
+//     height: 35px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     color: white;
+//     background-color: #426B1F
+// }
+
+// #recent-project {
+//     margin: 50px;
+//     display:flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+// }
+
+// .article {
+//     padding: 50px;
+//     display:flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+//     flex-direction:column;
+// }
+
+// .project-title {
+//     margin: 10px;
+//     font-weight: 700;
+// }
+
+// .project-image {
+//     border-radius: 10px;
+// }
+
+// #projects {
+//     display:flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+// }
+
+// .project-deck {
+//     width: 50%;
+//     padding: 20px;
+//     display:flex;
+//     flex-direction: row;
+//     align-items:center;
+//     justify-content: space-around;
+// }
+
+// .project-card {
+//     border-radius: 10px;
+//     width: 150px;
+//     height: 150px;
+//     background-color: rgb(237, 237, 237);
+// }
+
+// .article h6 {
+
+// }
+
+// .article h1 {
+//     font-weight:700;
+//     padding: 10px;
+// }
+
+// .article h5 {
+
+// }
+// 	</style>
+// <!DOCTYPE html>
+// <html lang="en">
+// <head>
+//     <meta charset="UTF-8">
+//     <meta name="author" content="Michael Vidotto">
+//     <meta name="description" content="Enjoy Coding Always home page">
+//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//     <link rel="stylesheet" href="css/styles.css">
+//     <link rel="preconnect" href="https://fonts.googleapis.com">
+//     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+//     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800" rel="stylesheet">
+
+//     <title>Projects</title>
+// </head>
+// <body>
+
+//     @header()
+
+//     @ProjectsMain()
+
+//     <footer></footer>
+// </body>
+// </html>
+// }
+
+// ////////////////////////////////////////// DOCUMENTATION PAGE //////////////////////////////////////////
+// templ documentation(date time.Time, title string, body string) {
+//     <style type="text/css">
+// 		* {
+//     margin: 0;
+//     padding: 0;
+//     font-family: Newsreader;
+//     font-weight: 450;
+// }
+
+// header {
+//     padding: 20px;
+//     height: 30px;
+//     width: 100%;
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: space-around;
+//     align-items: center;
+//     /* box-shadow: 0 -6px 5px 5px rgba(0,0,0,0.5); */
+//     padding-bottom: 100px;
+// }
+
+// #logo {
+//     color:#426B1F;
+//     width: 50%;
+//     display: flex;
+//     justify-content: flex-start;
+//     align-items: center;
+//     padding-left: 50px;
+// }
+
+// nav {
+//     height: 100%;
+//     width: 50%;
+//     display: flex;
+//     flex-direction:row;
+//     justify-content: center;
+//     align-items: center;
+// }
+
+// nav a {
+//     padding-left: 20px;
+//     font-size: 10px;
+// }
+
+// a {
+//     text-decoration: none;
+//     color:black;
+// }
+
+// #home-text {
+//     display:flex;
+//     flex-direction: column;
+//     align-items:center;
+//     justify-content: center;
+// }
+
+// #home-text h1 {
+//     padding-bottom: 10px;
+//     font-size: 250%;
+// }
+
+// #browse-btn {
+//     text-decoration: none;
+//     padding: 5px;
+//     margin: 50px;
+//     border-radius: 5px;
+//     background-color: rgb(241, 241, 241);
+//     color: rgb(0, 0, 0);
+//     font-family: Arial, Helvetica, sans-serif;
+//     font-style:bold;
+//     width: 170px;
+//     height: 35px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     color: white;
+//     background-color: #426B1F
+// }
+
+// #recent-project {
+//     margin: 50px;
+//     display:flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+// }
+
+// .article {
+//     padding: 50px;
+//     display:flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+//     flex-direction:column;
+// }
+
+// .project-title {
+//     margin: 10px;
+//     font-weight: 700;
+// }
+
+// .project-image {
+//     border-radius: 10px;
+// }
+
+// #projects {
+//     display:flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+// }
+
+// .project-deck {
+//     width: 50%;
+//     padding: 20px;
+//     display:flex;
+//     flex-direction: row;
+//     align-items:center;
+//     justify-content: space-around;
+// }
+
+// .project-card {
+//     border-radius: 10px;
+//     width: 150px;
+//     height: 150px;
+//     background-color: rgb(237, 237, 237);
+// }
+
+// .article h6 {
+
+// }
+
+// .article h1 {
+//     font-weight:700;
+//     padding: 10px;
+// }
+
+// .article h5 {
+
+// }
+// 	</style>
+// <!DOCTYPE html>
+// <html lang="en">
+// <head>
+//     <meta charset="UTF-8">
+//     <meta name="author" content="Michael Vidotto">
+//     <meta name="description" content="Enjoy Coding Always home page">
+//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//     <link rel="stylesheet" href="css/styles.css">
+//     <link rel="preconnect" href="https://fonts.googleapis.com">
+//     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+//     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800" rel="stylesheet">
+
+//     <title>Documentation</title>
+// </head>
+// <body>
+
+//     @header()
+
+//     @DocumentationMain(date, title, body)
+
+//     <footer></footer>
+// </body>
+// </html>
+// }
+
+// ////////////////////////////////////////// ABOUT PAGE //////////////////////////////////////////
+// templ about(date time.Time, title string, body string) {
+//     <style type="text/css">
+// 		* {
+//     margin: 0;
+//     padding: 0;
+//     font-family: Newsreader;
+//     font-weight: 450;
+// }
+
+// header {
+//     padding: 20px;
+//     height: 30px;
+//     width: 100%;
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: space-around;
+//     align-items: center;
+//     /* box-shadow: 0 -6px 5px 5px rgba(0,0,0,0.5); */
+//     padding-bottom: 100px;
+// }
+
+// #logo {
+//     color:#426B1F;
+//     width: 50%;
+//     display: flex;
+//     justify-content: flex-start;
+//     align-items: center;
+//     padding-left: 50px;
+// }
+
+// nav {
+//     height: 100%;
+//     width: 50%;
+//     display: flex;
+//     flex-direction:row;
+//     justify-content: center;
+//     align-items: center;
+// }
+
+// nav a {
+//     padding-left: 20px;
+//     font-size: 10px;
+// }
+
+// a {
+//     text-decoration: none;
+//     color:black;
+// }
+
+// #home-text {
+//     display:flex;
+//     flex-direction: column;
+//     align-items:center;
+//     justify-content: center;
+// }
+
+// #home-text h1 {
+//     padding-bottom: 10px;
+//     font-size: 250%;
+// }
+
+// #browse-btn {
+//     text-decoration: none;
+//     padding: 5px;
+//     margin: 50px;
+//     border-radius: 5px;
+//     background-color: rgb(241, 241, 241);
+//     color: rgb(0, 0, 0);
+//     font-family: Arial, Helvetica, sans-serif;
+//     font-style:bold;
+//     width: 170px;
+//     height: 35px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     color: white;
+//     background-color: #426B1F
+// }
+
+// #recent-project {
+//     margin: 50px;
+//     display:flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+// }
+
+// .article {
+//     padding: 50px;
+//     display:flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+//     flex-direction:column;
+// }
+
+// .project-title {
+//     margin: 10px;
+//     font-weight: 700;
+// }
+
+// .project-image {
+//     border-radius: 10px;
+// }
+
+// #projects {
+//     display:flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+// }
+
+// .project-deck {
+//     width: 50%;
+//     padding: 20px;
+//     display:flex;
+//     flex-direction: row;
+//     align-items:center;
+//     justify-content: space-around;
+// }
+
+// .project-card {
+//     border-radius: 10px;
+//     width: 150px;
+//     height: 150px;
+//     background-color: rgb(237, 237, 237);
+// }
+
+// .article h6 {
+
+// }
+
+// .article h1 {
+//     font-weight:700;
+//     padding: 10px;
+// }
+
+// .article h5 {
+
+// }
+// 	</style>
+// <!DOCTYPE html>
+// <html lang="en">
+// <head>
+//     <meta charset="UTF-8">
+//     <meta name="author" content="Michael Vidotto">
+//     <meta name="description" content="Enjoy Coding Always home page">
+//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//     <link rel="stylesheet" href="css/styles.css">
+//     <link rel="preconnect" href="https://fonts.googleapis.com">
+//     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+//     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800" rel="stylesheet">
+
+//     <title>About</title>
+// </head>
+// <body>
+
+//     @header()
+
+//     @AboutMain()
+
+//     <footer></footer>
+// </body>
+// </html>
+// }
