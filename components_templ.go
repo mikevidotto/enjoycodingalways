@@ -10,7 +10,7 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import "time"
 
-func fullPage() templ.Component {
+func fullPage(articles []Article) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -40,7 +40,7 @@ func fullPage() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = HomeMain().Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = HomeMain(articles).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -60,7 +60,7 @@ func fullPage() templ.Component {
 	})
 }
 
-func HomeMain() templ.Component {
+func HomeMain(articles []Article) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -90,7 +90,7 @@ func HomeMain() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = article().Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = recentArticle(articles[len(articles)-1]).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -102,7 +102,7 @@ func HomeMain() templ.Component {
 	})
 }
 
-func DocumentationMain() templ.Component {
+func DocumentationMain(articles []Article) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -120,15 +120,17 @@ func DocumentationMain() templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main><ul id=\"articles-list\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = article().Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
+		for _, a := range articles {
+			templ_7745c5c3_Err = displayArticle(a.date, a.title, a.body).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</main>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</ul></main>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -300,7 +302,7 @@ func recentProject() templ.Component {
 	})
 }
 
-func article() templ.Component {
+func recentArticle(article Article) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -318,46 +320,145 @@ func article() templ.Component {
 			templ_7745c5c3_Var10 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"article\"><article><h6>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"recent-article\"><h1>Latest Entry</h1>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var11 string
-		templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(time.Now().String())
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 145, Col: 42}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
+		templ_7745c5c3_Err = displayArticle(article.date, article.title, article.body).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h6><h1>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a id=\"browse-btn\" hx-post=\"/documentation\" hx-trigger=\"click\" hx-target=\"#page-body\" hx-swap=\"innerHTML\">Go to Docs</a></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		return templ_7745c5c3_Err
+	})
+}
+
+func article() templ.Component {
+	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+		if !templ_7745c5c3_IsBuffer {
+			defer func() {
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil {
+					templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}
+			}()
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var11 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var11 == nil {
+			templ_7745c5c3_Var11 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<article class=\"article\"><div><h1>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var12 string
 		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs("title")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 146, Col: 30}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 162, Col: 26}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h1><h5>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h1><h6>Date published: ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var13 string
-		templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs("bodybodybody")
+		templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(time.Now().Format("2006-01-02 15:04:05"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 147, Col: 37}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 163, Col: 75}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h5></article></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h6></div><h5>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var14 string
+		templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs("bodybodybody")
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 165, Col: 29}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h5></article>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		return templ_7745c5c3_Err
+	})
+}
+
+func displayArticle(date time.Time, title string, body string) templ.Component {
+	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+		if !templ_7745c5c3_IsBuffer {
+			defer func() {
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil {
+					templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}
+			}()
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var15 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var15 == nil {
+			templ_7745c5c3_Var15 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<article class=\"article\"><div><h1>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var16 string
+		templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(title)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 172, Col: 24}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h1><h6>Date published: ")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var17 string
+		templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(date.Format("2006-01-02 15:04:05"))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 173, Col: 69}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h6></div><h5>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var18 string
+		templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(body)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 175, Col: 19}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h5></article>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -378,21 +479,21 @@ func timeComponent() templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var14 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var14 == nil {
-			templ_7745c5c3_Var14 = templ.NopComponent
+		templ_7745c5c3_Var19 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var19 == nil {
+			templ_7745c5c3_Var19 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var15 string
-		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(time.Now().String())
+		var templ_7745c5c3_Var20 string
+		templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(time.Now().Format("2006-01-02 15:04:05"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 153, Col: 27}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 180, Col: 48}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -417,9 +518,9 @@ func notFoundComponent() templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var16 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var16 == nil {
-			templ_7745c5c3_Var16 = templ.NopComponent
+		templ_7745c5c3_Var21 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var21 == nil {
+			templ_7745c5c3_Var21 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div>404 - Not found</div>")
@@ -431,7 +532,7 @@ func notFoundComponent() templ.Component {
 }
 
 // //////////////////////////////////////// INDEX PAGE //////////////////////////////////////////
-func webpage() templ.Component {
+func webpage(articles []Article) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -444,16 +545,16 @@ func webpage() templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var17 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var17 == nil {
-			templ_7745c5c3_Var17 = templ.NopComponent
+		templ_7745c5c3_Var22 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var22 == nil {
+			templ_7745c5c3_Var22 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style type=\"text/css\">\r\n\t\t* {\r\n    margin: 0;\r\n    padding: 0;\r\n    font-family: Newsreader;\r\n    font-weight: 450;\r\n}\r\n\r\nheader {\r\n    padding: 20px;\r\n    height: 30px;\r\n    width: 100%;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-around;\r\n    align-items: center;\r\n    /* box-shadow: 0 -6px 5px 5px rgba(0,0,0,0.5); */\r\n    padding-bottom: 100px;\r\n}\r\n\r\nfooter {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-around;\r\n    align-items: center;\r\n    height: 20px;\r\n}\r\n\r\n#logo {\r\n    color:#426B1F;\r\n    width: 50%;    \r\n    display: flex;\r\n    justify-content: flex-start;\r\n    align-items: center;\r\n    padding-left: 50px;\r\n}\r\n\r\n#logo a {\r\n    color:#426B1F;\r\n}\r\n\r\nnav {\r\n    height: 100%;\r\n    width: 50%;\r\n    display: flex;\r\n    flex-direction:row;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\nnav a {\r\n    padding-left: 20px;\r\n    font-size: 10px;\r\n}\r\n\r\na {\r\n    cursor: pointer;\r\n    color:black; \r\n}\r\n\r\n#home-text {\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items:center;\r\n    justify-content: center;\r\n}\r\n\r\n#home-text h1 {\r\n    padding-bottom: 10px;\r\n    font-size: 250%;\r\n}\r\n\r\n#browse-btn {\r\n    text-decoration: none;\r\n    padding: 5px;\r\n    margin: 50px;\r\n    border-radius: 5px;\r\n    background-color: rgb(241, 241, 241);\r\n    color: rgb(0, 0, 0);\r\n    font-family: Arial, Helvetica, sans-serif;\r\n    font-style:bold;\r\n    width: 170px;\r\n    height: 35px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: white;\r\n    background-color: #426B1F\r\n}\r\n\r\n#recent-project {\r\n    margin: 50px;\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.article {\r\n    padding: 50px;\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction:column;\r\n}\r\n\r\n.project-title {\r\n    margin: 10px;\r\n    font-weight: 700;\r\n}\r\n\r\n.project-image {\r\n    border-radius: 10px;\r\n}\r\n\r\n#projects {\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.project-deck {\r\n    width: 50%;\r\n    padding: 20px;\r\n    display:flex;\r\n    flex-direction: row;\r\n    align-items:center;\r\n    justify-content: space-around;\r\n}\r\n\r\n.project-card {\r\n    border-radius: 10px;\r\n    width: 150px;\r\n    height: 150px;\r\n    background-color: rgb(237, 237, 237);\r\n}\r\n\r\n.article h6 {\r\n\r\n}\r\n\r\n.article h1 {\r\n    font-weight:700;\r\n    padding: 10px;\r\n}\r\n\r\n.article h5 {\r\n\r\n}\r\n\t</style>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style type=\"text/css\">\r\n\t\t* {\r\n    margin: 0;\r\n    padding: 0;\r\n    font-family: Newsreader;\r\n    font-weight: 450;\r\n}\r\n\r\nheader {\r\n    padding: 20px;\r\n    height: 30px;\r\n    width: 100%;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-around;\r\n    align-items: center;\r\n    /* box-shadow: 0 -6px 5px 5px rgba(0,0,0,0.5); */\r\n    padding-bottom: 100px;\r\n}\r\n\r\nfooter {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-around;\r\n    align-items: center;\r\n    height: 20px;\r\n}\r\n\r\n#logo {\r\n    color:#426B1F;\r\n    width: 50%;    \r\n    display: flex;\r\n    justify-content: flex-start;\r\n    align-items: center;\r\n    padding-left: 50px;\r\n}\r\n\r\n#logo a {\r\n    color:#426B1F;\r\n}\r\n\r\nnav {\r\n    height: 100%;\r\n    width: 50%;\r\n    display: flex;\r\n    flex-direction:row;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\nnav a {\r\n    padding-left: 20px;\r\n    font-size: 10px;\r\n}\r\n\r\na {\r\n    cursor: pointer;\r\n    color:black; \r\n}\r\n\r\n#home-text {\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items:center;\r\n    justify-content: center;\r\n}\r\n\r\n#home-text h1 {\r\n    padding-bottom: 10px;\r\n    font-size: 250%;\r\n}\r\n\r\n#browse-btn {\r\n    text-decoration: none;\r\n    padding: 5px;\r\n    margin: 50px;\r\n    border-radius: 5px;\r\n    background-color: rgb(241, 241, 241);\r\n    color: rgb(0, 0, 0);\r\n    font-family: Arial, Helvetica, sans-serif;\r\n    font-style:bold;\r\n    width: 170px;\r\n    height: 35px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: white;\r\n    background-color: #426B1F\r\n}\r\n\r\n#recent-project {\r\n    margin: 50px;\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.recent-article {\r\n    padding: 50px;\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction:column;\r\n}\r\n\r\n.article {\r\n    width: 700px;\r\n    background-color: rgb(237, 237, 237);\r\n    padding: 4px;\r\n    border-radius: 10px;\r\n}\r\n\r\n.article div {\r\n    border-top-left-radius: 10px;\r\n    border-top-right-radius: 10px;\r\n    background-color: #fff;\r\n    display:flex;\r\n    flex-direction:column;\r\n    justify-content: center;\r\n    align-items: flex-start;\r\n    border:1px solid black;\r\n}\r\n\r\n.article h6 {\r\n    margin: 5px;\r\n}\r\n\r\n.article h1 {\r\n\r\n}\r\n\r\n.article h5 {\r\n    padding: 5px;\r\n    background-color: white;\r\n    border: 1px solid black;\r\n    border-bottom-left-radius: 10px;\r\n    border-bottom-right-radius: 10px;\r\n}\r\n\r\n#articles-list {\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n}\r\n\r\n#articles-list .article {\r\n    margin: 20px;\r\n}\r\n\r\n.project-title {\r\n    margin: 10px;\r\n    font-weight: 700;\r\n}\r\n\r\n.project-image {\r\n    border-radius: 10px;\r\n}\r\n\r\n#projects {\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.project-deck {\r\n    width: 50%;\r\n    padding: 20px;\r\n    display:flex;\r\n    flex-direction: row;\r\n    align-items:center;\r\n    justify-content: space-around;\r\n}\r\n\r\n.project-card {\r\n    border-radius: 10px;\r\n    width: 150px;\r\n    height: 150px;\r\n    background-color: rgb(237, 237, 237);\r\n}\r\n\r\n.article h6 {\r\n\r\n}\r\n\r\n.article h1 {\r\n    font-weight:700;\r\n    padding: 10px;\r\n}\r\n\r\n.article h5 {\r\n\r\n}\r\n\t</style>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = fullPage().Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = fullPage(articles).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

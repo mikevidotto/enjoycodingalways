@@ -2,7 +2,7 @@ package main
 
 import "time"
 
-templ fullPage() {
+templ fullPage(articles []Article) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +33,7 @@ templ fullPage() {
 
     // }
 
-    <main id="page-body">@HomeMain()</main>
+    <main id="page-body">@HomeMain(articles)</main>
 
     @footer()
 
@@ -41,17 +41,21 @@ templ fullPage() {
 </html>
 }
 
-templ HomeMain() {
+templ HomeMain(articles []Article) {
     <main>
         @homePanel() 
         @recentProject()
-        @article()
+        @recentArticle(articles[len(articles)-1])
     </main>
 }
 
-templ DocumentationMain() {
+templ DocumentationMain(articles []Article) {
     <main>
-         @article()
+        <ul id="articles-list">
+            for _, a := range articles {
+                @displayArticle(a.date, a.title, a.body)
+            }
+        </ul>
     </main>
 }
 
@@ -139,18 +143,41 @@ templ recentProject() {
         </div>
 }
 
+templ recentArticle(article Article) {
+	<div class="recent-article">
+        <h1>Latest Entry</h1>
+
+        @displayArticle(article.date, article.title, article.body)
+
+        <a id="browse-btn" hx-post="/documentation"
+            hx-trigger="click"
+            hx-target="#page-body"
+            hx-swap="innerHTML">Go to Docs</a>
+    </div>
+}
+
 templ article() {
-	<div class="article">
-            <article>
-                <h6> { time.Now().String() } </h6>
-                <h1> { "title" } </h1>
-                <h5> { "bodybodybody" }</h5>
-            </article>
+    <article class="article">
+        <div>
+            <h1> { "title" } </h1>
+            <h6> Date published: { time.Now().Format("2006-01-02 15:04:05") } </h6>
         </div>
+        <h5> { "bodybodybody" }</h5>
+    </article>
+}
+
+templ displayArticle(date time.Time, title string, body string) {
+    <article class="article">
+        <div>
+            <h1> { title } </h1>
+            <h6> Date published: { date.Format("2006-01-02 15:04:05") } </h6>
+        </div>
+        <h5> { body }</h5>
+    </article>
 }
 
 templ timeComponent() {
-	<div>{ time.Now().String() }</div>
+	<div>{ time.Now().Format("2006-01-02 15:04:05") }</div>
 }
 
 templ notFoundComponent() {
@@ -160,7 +187,7 @@ templ notFoundComponent() {
 
 
 ////////////////////////////////////////// INDEX PAGE //////////////////////////////////////////
-templ webpage() {
+templ webpage(articles []Article) {
     <style type="text/css">
 		* {
     margin: 0;
@@ -259,13 +286,57 @@ a {
     justify-content: center;
 }
 
-.article {
+.recent-article {
     padding: 50px;
     display:flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     flex-direction:column;
+}
+
+.article {
+    width: 700px;
+    background-color: rgb(237, 237, 237);
+    padding: 4px;
+    border-radius: 10px;
+}
+
+.article div {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #fff;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: flex-start;
+    border:1px solid black;
+}
+
+.article h6 {
+    margin: 5px;
+}
+
+.article h1 {
+
+}
+
+.article h5 {
+    padding: 5px;
+    background-color: white;
+    border: 1px solid black;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#articles-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#articles-list .article {
+    margin: 20px;
 }
 
 .project-title {
@@ -314,5 +385,5 @@ a {
 }
 	</style>
 
-    @fullPage()
+    @fullPage(articles)
 }
