@@ -2,7 +2,7 @@ package main
 
 import "time"
 
-templ fullPage(date time.Time, title string, body string, path string) {
+templ fullPage() {
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,27 +10,30 @@ templ fullPage(date time.Time, title string, body string, path string) {
     <meta name="author" content="Michael Vidotto">
     <meta name="description" content="A website where you can post articles.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@2.0.1" integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800" rel="stylesheet">
     <title>Enjoy Coding Always</title>
 </head>
-<body>
+<body hx-boost>
 
     @header()
 
-    switch path {
-        case "/", "/index.html":
-            @HomeMain(date, title, body)
-        case "/projects.html":
-            @ProjectsMain()
-        case "/documentation.html":
-            @DocumentationMain(date, title, body)
-        case "/about.html":
-            @AboutMain()
-        default:
+    // switch path {
+    //     case "/", "/index.html":
+    //         @HomeMain()
+    //     case "/projects.html":
+    //         @ProjectsMain()
+    //     case "/documentation.html":
+    //         @DocumentationMain()
+    //     case "/about.html":
+    //         @AboutMain()
+    //     default:
 
-    }
+    // }
+
+    <main id="page-body">@HomeMain()</main>
 
     @footer()
 
@@ -38,15 +41,21 @@ templ fullPage(date time.Time, title string, body string, path string) {
 </html>
 }
 
-templ HomeMain(date time.Time, title string, body string) {
+templ HomeMain() {
     <main>
         @homePanel() 
         @recentProject()
-        @article(date, title, body)
+        @article()
     </main>
 }
 
-templ ProjectsMain() {  
+templ DocumentationMain() {
+    <main>
+         @article()
+    </main>
+}
+
+templ ProjectsMain() {
     <main>
         @recentProject()
         <div id="projects">
@@ -63,12 +72,6 @@ templ ProjectsMain() {
     </main>
 }
 
-templ DocumentationMain(date time.Time, title string, body string) {
-    <main>
-         @article(date, title, body)
-    </main>
-}
-
 templ AboutMain() {
     <main>
         <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
@@ -81,13 +84,31 @@ templ AboutMain() {
 templ header() {
     <header>
         <div id="logo">     
-            <a href="index.html">Enjoy Coding Always</a>
+            <a hx-post="/"
+                hx-trigger="click"
+                hx-target="#page-body"
+                hx-swap="innerHTML">Enjoy Coding Always</a>
         </div>
         <nav>
-            <a href="/index.html">Home</a>
-            <a href="/projects.html">Projects</a>
-            <a href="/documentation.html">Documentation</a>
-            <a href="/about.html">About</a>
+            <a hx-post="/"
+                hx-trigger="click"
+                hx-target="#page-body"
+                hx-swap="innerHTML">Home</a>
+
+            <a hx-post="/projects"
+                hx-trigger="click"
+                hx-target="#page-body"
+                hx-swap="innerHTML">Projects</a>
+
+            <a hx-post="/documentation"
+                hx-trigger="click"
+                hx-target="#page-body"
+                hx-swap="innerHTML">Documentation</a>
+
+            <a hx-post="/about"
+                hx-trigger="click"
+                hx-target="#page-body"
+                hx-swap="innerHTML">About</a>
         </nav>
     </header>
 }
@@ -102,7 +123,10 @@ templ homePanel() {
             <h1>Clear <i>documentation,</i><br></h1>    
             <h1>Centralized <i>knowledge.</i></h1>
             <br>
-            <a href="projects.html" id="browse-btn">Browse Projects</a>
+            <a id="browse-btn" hx-post="/projects"
+                hx-trigger="click"
+                hx-target="#page-body"
+                hx-swap="innerHTML">Browse Projects</a>
         </div>
 }
 
@@ -110,23 +134,23 @@ templ recentProject() {
     <div id="recent-project">
             <h6>Currently working on...</h6>
             <h1 class="project-title">Enjoy Coding Always</h1>
-            <img src="./images/projectimage.png" alt="project image" width="700" height="500" class="project-image">
+            <img src="/documentation/static/images/projectimage.png" alt="project image" width="700" height="500" class="project-image">
             <h6 class="project-description"></h6>
         </div>
 }
 
-templ article(date time.Time, title string, body string) {
+templ article() {
 	<div class="article">
             <article>
-                <h6> { date.String() } </h6>
-                <h1> { title } </h1>
-                <h5> { body }</h5>
+                <h6> { time.Now().String() } </h6>
+                <h1> { "title" } </h1>
+                <h5> { "bodybodybody" }</h5>
             </article>
         </div>
 }
 
-templ timeComponent(d time.Time) {
-	<div>{ d.String() }</div>
+templ timeComponent() {
+	<div>{ time.Now().String() }</div>
 }
 
 templ notFoundComponent() {
@@ -136,7 +160,7 @@ templ notFoundComponent() {
 
 
 ////////////////////////////////////////// INDEX PAGE //////////////////////////////////////////
-templ index(date time.Time, title string, body string, path string) {
+templ webpage() {
     <style type="text/css">
 		* {
     margin: 0;
@@ -193,7 +217,7 @@ nav a {
 }
 
 a {
-    text-decoration: none;
+    cursor: pointer;
     color:black; 
 }
 
@@ -290,5 +314,5 @@ a {
 }
 	</style>
 
-    @fullPage(date, title, body, path)
+    @fullPage()
 }
