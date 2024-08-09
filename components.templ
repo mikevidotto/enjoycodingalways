@@ -67,11 +67,29 @@ templ ProjectsMain() {
         <div id="projects">
             <h1>Other projects</h1>
             <div class="project-deck">
-                <div class="project-card">
+
+                <div class="project-card-container">
+                    <div class="project-card">
+                        <img src="/static/images/projectimage.png" alt="project image" width="90%" height="90%" class="project-image"/>
+                    </div>
+                    <h5 class="project-title">Enjoy Coding Always</h5>
+                    <h6 class="project-description">A personal hub to create and read documentation using Go, templ and HTMX.</h6>
                 </div>
+
+                <div class="project-card-container">
                 <div class="project-card">
+                        <img src="/static/images/projectimage.png" alt="project image" width="90%" height="90%" class="project-image"/>
+                    </div>
+                    <h5 class="project-title">Enjoy Coding Always</h5>
+                    <h6 class="project-description">A personal hub to create and read documentation using Go, templ and HTMX.</h6>
                 </div>
+
+                <div class="project-card-container">
                 <div class="project-card">
+                        <img src="/static/images/projectimage.png" alt="project image" width="90%" height="90%" class="project-image"/>
+                    </div>
+                    <h5 class="project-title">Enjoy Coding Always</h5>
+                    <h6 class="project-description">A personal hub to create and read documentation using Go, templ and HTMX.</h6>
                 </div>
             </div>
         </div>
@@ -385,11 +403,34 @@ a {
     justify-content: space-around;
 }
 
+.project-card-container {
+    width: 300px;
+    height: 300px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .project-card {
     border-radius: 10px;
     width: 150px;
     height: 150px;
-    background-color: rgb(237, 237, 237);
+}
+
+.project-card-container .project-title {
+    margin: 10px;
+    font-weight: 700;
+}
+
+.project-card-container .product-image {
+    border: 1px solid black;
+}
+
+.project-card-container .project-description {
+    padding: 5px;
+    width: 100%;
+    text-align: center;
 }
 
 .article h6 {

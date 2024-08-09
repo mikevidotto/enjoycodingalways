@@ -8,6 +8,11 @@ import (
 	"time"
 )
 
+type Project struct {
+	title       string
+	description string
+}
+
 type Article struct {
 	date  time.Time
 	title string
@@ -31,19 +36,11 @@ func main() {
 	http.HandleFunc("/documentation", documentationHandler)
 	http.HandleFunc("/about", aboutHandler)
 
-	err := http.ListenAndServe(":8081", nil)
+	err := http.ListenAndServe("localhost:8081", nil)
 	if err != nil {
 		log.Fatal("Error with ListenAndServe:", err)
 	}
 }
-
-// <div id="recent-project">
-//			<div style="display:flex">
-//             <h6>Currently working on...</h6>
-//             <h1 class="project-title">Enjoy Coding Always</h1>
-//             <img src="/static/images/projectimage.png" alt="project image" width="700" height="500" class="project-image"/>
-//             <h6 class="project-description"></h6>
-//         </div>
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
