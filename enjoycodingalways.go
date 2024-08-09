@@ -22,6 +22,10 @@ func main() {
 	articles = append(articles, Article{date: time.Now(), title: "Article 2", body: "two two two two two two two two two two "})
 	articles = append(articles, Article{date: time.Now(), title: "Third article", body: "three. three. three. three. three. three. three. three. three. three. three. three. three. three. three. three. three. three. three. three. three. three. three. three. "})
 
+	directory := http.Dir(".")
+	fs := http.FileServer(directory)
+	http.Handle("/static/", fs)
+
 	http.HandleFunc("/", handler)
 	http.HandleFunc("/projects", projectsHandler)
 	http.HandleFunc("/documentation", documentationHandler)

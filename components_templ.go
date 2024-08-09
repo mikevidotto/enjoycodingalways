@@ -8,7 +8,9 @@ package main
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "time"
+import (
+	"time"
+)
 
 func fullPage(articles []Article) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
@@ -294,7 +296,7 @@ func recentProject() templ.Component {
 			templ_7745c5c3_Var9 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"recent-project\"><h6>Currently working on...</h6><h1 class=\"project-title\">Enjoy Coding Always</h1><img src=\"/documentation/static/images/projectimage.png\" alt=\"project image\" width=\"700\" height=\"500\" class=\"project-image\"><h6 class=\"project-description\"></h6></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"recent-project\"><h6>Currently working on...</h6><h1 class=\"project-title\">Enjoy Coding Always</h1><img src=\"/static/images/projectimage.png\" alt=\"project image\" width=\"700\" height=\"500\" class=\"project-image\"><h6 class=\"project-description\"></h6></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -361,7 +363,7 @@ func article() templ.Component {
 		var templ_7745c5c3_Var12 string
 		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs("title")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 162, Col: 26}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 164, Col: 26}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 		if templ_7745c5c3_Err != nil {
@@ -374,7 +376,7 @@ func article() templ.Component {
 		var templ_7745c5c3_Var13 string
 		templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(time.Now().Format("2006-01-02 15:04:05"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 163, Col: 75}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 165, Col: 75}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 		if templ_7745c5c3_Err != nil {
@@ -387,7 +389,7 @@ func article() templ.Component {
 		var templ_7745c5c3_Var14 string
 		templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs("bodybodybody")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 165, Col: 29}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 167, Col: 29}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 		if templ_7745c5c3_Err != nil {
@@ -426,7 +428,7 @@ func displayArticle(date time.Time, title string, body string) templ.Component {
 		var templ_7745c5c3_Var16 string
 		templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 172, Col: 24}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 174, Col: 24}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 		if templ_7745c5c3_Err != nil {
@@ -439,7 +441,7 @@ func displayArticle(date time.Time, title string, body string) templ.Component {
 		var templ_7745c5c3_Var17 string
 		templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(date.Format("2006-01-02 15:04:05"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 173, Col: 69}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 175, Col: 69}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 		if templ_7745c5c3_Err != nil {
@@ -452,7 +454,7 @@ func displayArticle(date time.Time, title string, body string) templ.Component {
 		var templ_7745c5c3_Var18 string
 		templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(body)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 175, Col: 19}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 177, Col: 19}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 		if templ_7745c5c3_Err != nil {
@@ -491,7 +493,7 @@ func timeComponent() templ.Component {
 		var templ_7745c5c3_Var20 string
 		templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(time.Now().Format("2006-01-02 15:04:05"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 180, Col: 48}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 182, Col: 48}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
 		if templ_7745c5c3_Err != nil {
@@ -550,7 +552,7 @@ func webpage(articles []Article) templ.Component {
 			templ_7745c5c3_Var22 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style type=\"text/css\">\r\n\t\t* {\r\n    margin: 0;\r\n    padding: 0;\r\n    font-family: Newsreader;\r\n    font-weight: 450;\r\n}\r\n\r\nheader {\r\n    padding: 20px;\r\n    height: 30px;\r\n    width: 100%;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-around;\r\n    align-items: center;\r\n    /* box-shadow: 0 -6px 5px 5px rgba(0,0,0,0.5); */\r\n    padding-bottom: 100px;\r\n}\r\n\r\nfooter {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-around;\r\n    align-items: center;\r\n    height: 20px;\r\n}\r\n\r\n#logo {\r\n    color:#426B1F;\r\n    width: 50%;    \r\n    display: flex;\r\n    justify-content: flex-start;\r\n    align-items: center;\r\n    padding-left: 50px;\r\n}\r\n\r\n#logo a {\r\n    color:#426B1F;\r\n}\r\n\r\nnav {\r\n    height: 100%;\r\n    width: 50%;\r\n    display: flex;\r\n    flex-direction:row;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\nnav a {\r\n    padding-left: 20px;\r\n    font-size: 10px;\r\n}\r\n\r\na {\r\n    cursor: pointer;\r\n    color:black; \r\n}\r\n\r\n#home-text {\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items:center;\r\n    justify-content: center;\r\n}\r\n\r\n#home-text h1 {\r\n    padding-bottom: 10px;\r\n    font-size: 250%;\r\n}\r\n\r\n#browse-btn {\r\n    text-decoration: none;\r\n    padding: 5px;\r\n    margin: 50px;\r\n    border-radius: 5px;\r\n    background-color: rgb(241, 241, 241);\r\n    color: rgb(0, 0, 0);\r\n    font-family: Arial, Helvetica, sans-serif;\r\n    font-style:bold;\r\n    width: 170px;\r\n    height: 35px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: white;\r\n    background-color: #426B1F\r\n}\r\n\r\n#recent-project {\r\n    margin: 50px;\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.recent-article {\r\n    padding: 50px;\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction:column;\r\n}\r\n\r\n.article {\r\n    width: 700px;\r\n    background-color: rgb(237, 237, 237);\r\n    padding: 4px;\r\n    border-radius: 10px;\r\n}\r\n\r\n.article div {\r\n    border-top-left-radius: 10px;\r\n    border-top-right-radius: 10px;\r\n    background-color: #fff;\r\n    display:flex;\r\n    flex-direction:column;\r\n    justify-content: center;\r\n    align-items: flex-start;\r\n    border:1px solid black;\r\n}\r\n\r\n.article h6 {\r\n    margin: 5px;\r\n}\r\n\r\n.article h1 {\r\n\r\n}\r\n\r\n.article h5 {\r\n    padding: 5px;\r\n    background-color: white;\r\n    border: 1px solid black;\r\n    border-bottom-left-radius: 10px;\r\n    border-bottom-right-radius: 10px;\r\n}\r\n\r\n#articles-list {\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n}\r\n\r\n#articles-list .article {\r\n    margin: 20px;\r\n}\r\n\r\n.project-title {\r\n    margin: 10px;\r\n    font-weight: 700;\r\n}\r\n\r\n.project-image {\r\n    border-radius: 10px;\r\n}\r\n\r\n#projects {\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.project-deck {\r\n    width: 50%;\r\n    padding: 20px;\r\n    display:flex;\r\n    flex-direction: row;\r\n    align-items:center;\r\n    justify-content: space-around;\r\n}\r\n\r\n.project-card {\r\n    border-radius: 10px;\r\n    width: 150px;\r\n    height: 150px;\r\n    background-color: rgb(237, 237, 237);\r\n}\r\n\r\n.article h6 {\r\n\r\n}\r\n\r\n.article h1 {\r\n    font-weight:700;\r\n    padding: 10px;\r\n}\r\n\r\n.article h5 {\r\n\r\n}\r\n\t</style>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style type=\"text/css\">\r\n\t\t* {\r\n    margin: 0;\r\n    padding: 0;\r\n    font-family: Newsreader;\r\n    font-weight: 450;\r\n}\r\n\r\nheader {\r\n    height: 50px;\r\n    width: 100%;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: center;\r\n    align-items: center;\r\n    box-shadow: 0 -6px 5px 5px rgba(0,0,0,0.5); \r\n    margin-bottom: 100px;\r\n}\r\n\r\nfooter {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-around;\r\n    align-items: center;\r\n    height: 20px;\r\n}\r\n\r\n#logo {\r\n    color:#426B1F;\r\n    width: 50%;    \r\n    display: flex;\r\n    justify-content: flex-start;\r\n    align-items: center;\r\n    padding-left: 50px;\r\n}\r\n\r\n#logo a {\r\n    color:#426B1F;\r\n}\r\n\r\nnav {\r\n    height: 100%;\r\n    width: 50%;\r\n    display: flex;\r\n    flex-direction:row;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\nnav a {\r\n    padding-left: 20px;\r\n    font-size: 10px;\r\n}\r\n\r\na {\r\n    cursor: pointer;\r\n    color:black; \r\n}\r\n\r\n#home-text {\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items:center;\r\n    justify-content: center;\r\n}\r\n\r\n#home-text h1 {\r\n    padding-bottom: 10px;\r\n    font-size: 250%;\r\n}\r\n\r\n#browse-btn {\r\n    text-decoration: none;\r\n    padding: 5px;\r\n    margin: 50px;\r\n    border-radius: 5px;\r\n    background-color: rgb(241, 241, 241);\r\n    color: rgb(0, 0, 0);\r\n    font-family: Arial, Helvetica, sans-serif;\r\n    font-style:bold;\r\n    width: 170px;\r\n    height: 35px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: white;\r\n    background-color: #426B1F\r\n}\r\n\r\n#recent-project {\r\n    margin: 50px;\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.recent-article {\r\n    padding: 50px;\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction:column;\r\n}\r\n\r\n.article {\r\n    width: 700px;\r\n    background-color: rgb(237, 237, 237);\r\n    padding: 4px;\r\n    border-radius: 10px;\r\n}\r\n\r\n.article div {\r\n    border-top-left-radius: 10px;\r\n    border-top-right-radius: 10px;\r\n    background-color: #fff;\r\n    display:flex;\r\n    flex-direction:column;\r\n    justify-content: center;\r\n    align-items: flex-start;\r\n    border:1px solid black;\r\n}\r\n\r\n.article h6 {\r\n    margin: 5px;\r\n}\r\n\r\n.article h1 {\r\n\r\n}\r\n\r\n.article h5 {\r\n    padding: 5px;\r\n    background-color: white;\r\n    border: 1px solid black;\r\n    border-bottom-left-radius: 10px;\r\n    border-bottom-right-radius: 10px;\r\n}\r\n\r\n#articles-list {\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n}\r\n\r\n#articles-list .article {\r\n    margin: 20px;\r\n}\r\n\r\n.project-title {\r\n    margin: 10px;\r\n    font-weight: 700;\r\n}\r\n\r\n.project-image {\r\n    border-radius: 10px;\r\n}\r\n\r\n#projects {\r\n    display:flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.project-deck {\r\n    width: 50%;\r\n    padding: 20px;\r\n    display:flex;\r\n    flex-direction: row;\r\n    align-items:center;\r\n    justify-content: space-around;\r\n}\r\n\r\n.project-card {\r\n    border-radius: 10px;\r\n    width: 150px;\r\n    height: 150px;\r\n    background-color: rgb(237, 237, 237);\r\n}\r\n\r\n.article h6 {\r\n\r\n}\r\n\r\n.article h1 {\r\n    font-weight:700;\r\n    padding: 10px;\r\n}\r\n\r\n.article h5 {\r\n\r\n}\r\n\t</style>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

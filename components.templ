@@ -1,6 +1,8 @@
 package main
 
-import "time"
+import (
+    "time"
+)
 
 templ fullPage(articles []Article) {
 <!DOCTYPE html>
@@ -138,7 +140,7 @@ templ recentProject() {
     <div id="recent-project">
             <h6>Currently working on...</h6>
             <h1 class="project-title">Enjoy Coding Always</h1>
-            <img src="/documentation/static/images/projectimage.png" alt="project image" width="700" height="500" class="project-image">
+            <img src="/static/images/projectimage.png" alt="project image" width="700" height="500" class="project-image"/>
             <h6 class="project-description"></h6>
         </div>
 }
@@ -197,15 +199,14 @@ templ webpage(articles []Article) {
 }
 
 header {
-    padding: 20px;
-    height: 30px;
+    height: 50px;
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    /* box-shadow: 0 -6px 5px 5px rgba(0,0,0,0.5); */
-    padding-bottom: 100px;
+    box-shadow: 0 -6px 5px 5px rgba(0,0,0,0.5); 
+    margin-bottom: 100px;
 }
 
 footer {
