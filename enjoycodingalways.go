@@ -37,11 +37,13 @@ func main() {
 	}
 }
 
-// <article class="article">
-//		<h6> { time.Now().String() } </h6>
-//      <h1> { "title" } </h1>
-// 		<h5> { "bodybodybody" }</h5>
-// </article>
+// <div id="recent-project">
+//			<div style="display:flex">
+//             <h6>Currently working on...</h6>
+//             <h1 class="project-title">Enjoy Coding Always</h1>
+//             <img src="/static/images/projectimage.png" alt="project image" width="700" height="500" class="project-image"/>
+//             <h6 class="project-description"></h6>
+//         </div>
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {

@@ -137,12 +137,15 @@ templ homePanel() {
 }
 
 templ recentProject() {
-    <div id="recent-project">
-            <h6>Currently working on...</h6>
+    <div class="recent-project-container">
+        <h6>Currently working on...</h6>
+        <div id="recent-project">
             <h1 class="project-title">Enjoy Coding Always</h1>
-            <img src="/static/images/projectimage.png" alt="project image" width="700" height="500" class="project-image"/>
-            <h6 class="project-description"></h6>
+            <img src="/static/images/projectimage.png" alt="project image" width="90%" height="100%" class="project-image"/>
+            <h6 class="project-description">A personal hub to create and read documentation using Go, templ and HTMX.</h6>
         </div>
+    </div>
+
 }
 
 templ recentArticle(article Article) {
@@ -206,7 +209,6 @@ header {
     justify-content: center;
     align-items: center;
     box-shadow: 0 -6px 5px 5px rgba(0,0,0,0.5); 
-    margin-bottom: 100px;
 }
 
 footer {
@@ -254,6 +256,7 @@ a {
     flex-direction: column;
     align-items:center;
     justify-content: center;
+    padding-top: 100px;
 }
 
 #home-text h1 {
@@ -279,13 +282,38 @@ a {
     background-color: #426B1F
 }
 
+.recent-project-container {
+    width: 100%; 
+    display:flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+    margin-top:100px;
+}
+
 #recent-project {
-    margin: 50px;
+    width: 700px;
     display:flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
+
+#recent-project .project-title {
+    margin: 10px;
+    font-weight: 700;
+}
+
+#recent-project .product-image {
+    border: 1px solid black;
+}
+
+#recent-project .project-description {
+    padding: 5px;
+    width: 100%;
+    text-align: center;
+}
+
 
 .recent-article {
     padding: 50px;
@@ -340,16 +368,8 @@ a {
     margin: 20px;
 }
 
-.project-title {
-    margin: 10px;
-    font-weight: 700;
-}
-
-.project-image {
-    border-radius: 10px;
-}
-
 #projects {
+    margin-top:100px;
     display:flex;
     flex-direction: column;
     align-items: center;
