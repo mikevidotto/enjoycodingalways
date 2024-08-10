@@ -44,6 +44,22 @@ templ fullPage(articles []Article) {
 }
 
 templ HomeMain(articles []Article) {
+    <style>
+        .HomeNav{
+		color:#426B1F;
+	}
+
+	.ProjectNav {
+		color:black;
+	}
+
+	.DocNav {
+		color:black;
+	}
+	.AboutNav {
+		color:black;
+	}
+    </style>
     <main>
         @homePanel() 
         @recentProject()
@@ -52,6 +68,23 @@ templ HomeMain(articles []Article) {
 }
 
 templ DocumentationMain(articles []Article) {
+    <style>
+        .HomeNav{
+		color:black;
+	}
+
+	.ProjectNav {
+		color:black;
+	}
+
+	.DocNav {
+		color:#426B1F;
+	}
+	.AboutNav {
+		color:black;
+	}
+    </style>
+    
     <main>
         <ul id="articles-list">
             for _, a := range articles {
@@ -62,6 +95,23 @@ templ DocumentationMain(articles []Article) {
 }
 
 templ ProjectsMain() {
+    <style>
+        .HomeNav{
+		color:black;
+	}
+
+	.ProjectNav {
+		color:#426B1F;
+	}
+
+	.DocNav {
+		color:black;
+	}
+	.AboutNav {
+		color:black;
+	}
+    </style>
+
     <main>
         @recentProject()
         <div id="projects">
@@ -97,6 +147,23 @@ templ ProjectsMain() {
 }
 
 templ AboutMain() {
+    <style>
+        .HomeNav{
+		color:black;
+	}
+
+	.ProjectNav {
+		color:black;
+	}
+
+	.DocNav {
+		color:black;
+	}
+	.AboutNav {
+		color:#426B1F;
+	}
+    </style>
+    
     <main>
         <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
             <h1 style="padding-top: 50px; padding-bottom: 100px;">More information about us.</h1>
@@ -114,22 +181,22 @@ templ header() {
                 hx-swap="innerHTML">Enjoy Coding Always</a>
         </div>
         <nav>
-            <a hx-post="/"
+            <a class="HomeNav" hx-post="/"
                 hx-trigger="click"
                 hx-target="#page-body"
                 hx-swap="innerHTML">Home</a>
 
-            <a hx-post="/projects"
+            <a class="ProjectNav" hx-post="/projects"
                 hx-trigger="click"
                 hx-target="#page-body"
                 hx-swap="innerHTML">Projects</a>
 
-            <a hx-post="/documentation"
+            <a class="DocNav" hx-post="/documentation"
                 hx-trigger="click"
                 hx-target="#page-body"
                 hx-swap="innerHTML">Documentation</a>
 
-            <a hx-post="/about"
+            <a class="AboutNav" hx-post="/about"
                 hx-trigger="click"
                 hx-target="#page-body"
                 hx-swap="innerHTML">About</a>

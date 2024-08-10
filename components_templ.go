@@ -80,7 +80,7 @@ func HomeMain(articles []Article) templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style>\r\n        .HomeNav{\r\n\t\tcolor:#426B1F;\r\n\t}\r\n\r\n\t.ProjectNav {\r\n\t\tcolor:black;\r\n\t}\r\n\r\n\t.DocNav {\r\n\t\tcolor:black;\r\n\t}\r\n\t.AboutNav {\r\n\t\tcolor:black;\r\n\t}\r\n    </style><main>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -122,7 +122,7 @@ func DocumentationMain(articles []Article) templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main><ul id=\"articles-list\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style>\r\n        .HomeNav{\r\n\t\tcolor:black;\r\n\t}\r\n\r\n\t.ProjectNav {\r\n\t\tcolor:black;\r\n\t}\r\n\r\n\t.DocNav {\r\n\t\tcolor:#426B1F;\r\n\t}\r\n\t.AboutNav {\r\n\t\tcolor:black;\r\n\t}\r\n    </style><main><ul id=\"articles-list\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -158,7 +158,7 @@ func ProjectsMain() templ.Component {
 			templ_7745c5c3_Var4 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style>\r\n        .HomeNav{\r\n\t\tcolor:black;\r\n\t}\r\n\r\n\t.ProjectNav {\r\n\t\tcolor:#426B1F;\r\n\t}\r\n\r\n\t.DocNav {\r\n\t\tcolor:black;\r\n\t}\r\n\t.AboutNav {\r\n\t\tcolor:black;\r\n\t}\r\n    </style><main>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -192,7 +192,7 @@ func AboutMain() templ.Component {
 			templ_7745c5c3_Var5 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main><div style=\"display: flex; flex-direction: column; justify-content: center; align-items: center;\"><h1 style=\"padding-top: 50px; padding-bottom: 100px;\">More information about us.</h1><h5>I like coding.</h5></div></main>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style>\r\n        .HomeNav{\r\n\t\tcolor:black;\r\n\t}\r\n\r\n\t.ProjectNav {\r\n\t\tcolor:black;\r\n\t}\r\n\r\n\t.DocNav {\r\n\t\tcolor:black;\r\n\t}\r\n\t.AboutNav {\r\n\t\tcolor:#426B1F;\r\n\t}\r\n    </style><main><div style=\"display: flex; flex-direction: column; justify-content: center; align-items: center;\"><h1 style=\"padding-top: 50px; padding-bottom: 100px;\">More information about us.</h1><h5>I like coding.</h5></div></main>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -218,7 +218,7 @@ func header() templ.Component {
 			templ_7745c5c3_Var6 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<header><div id=\"logo\"><a hx-post=\"/\" hx-trigger=\"click\" hx-target=\"#page-body\" hx-swap=\"innerHTML\">Enjoy Coding Always</a></div><nav><a hx-post=\"/\" hx-trigger=\"click\" hx-target=\"#page-body\" hx-swap=\"innerHTML\">Home</a> <a hx-post=\"/projects\" hx-trigger=\"click\" hx-target=\"#page-body\" hx-swap=\"innerHTML\">Projects</a> <a hx-post=\"/documentation\" hx-trigger=\"click\" hx-target=\"#page-body\" hx-swap=\"innerHTML\">Documentation</a> <a hx-post=\"/about\" hx-trigger=\"click\" hx-target=\"#page-body\" hx-swap=\"innerHTML\">About</a></nav></header>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<header><div id=\"logo\"><a hx-post=\"/\" hx-trigger=\"click\" hx-target=\"#page-body\" hx-swap=\"innerHTML\">Enjoy Coding Always</a></div><nav><a class=\"HomeNav\" hx-post=\"/\" hx-trigger=\"click\" hx-target=\"#page-body\" hx-swap=\"innerHTML\">Home</a> <a class=\"ProjectNav\" hx-post=\"/projects\" hx-trigger=\"click\" hx-target=\"#page-body\" hx-swap=\"innerHTML\">Projects</a> <a class=\"DocNav\" hx-post=\"/documentation\" hx-trigger=\"click\" hx-target=\"#page-body\" hx-swap=\"innerHTML\">Documentation</a> <a class=\"AboutNav\" hx-post=\"/about\" hx-trigger=\"click\" hx-target=\"#page-body\" hx-swap=\"innerHTML\">About</a></nav></header>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -363,7 +363,7 @@ func article() templ.Component {
 		var templ_7745c5c3_Var12 string
 		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs("title")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 185, Col: 26}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 252, Col: 26}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 		if templ_7745c5c3_Err != nil {
@@ -376,7 +376,7 @@ func article() templ.Component {
 		var templ_7745c5c3_Var13 string
 		templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(time.Now().Format("2006-01-02 15:04:05"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 186, Col: 75}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 253, Col: 75}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 		if templ_7745c5c3_Err != nil {
@@ -389,7 +389,7 @@ func article() templ.Component {
 		var templ_7745c5c3_Var14 string
 		templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs("bodybodybody")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 188, Col: 29}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 255, Col: 29}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 		if templ_7745c5c3_Err != nil {
@@ -428,7 +428,7 @@ func displayArticle(date time.Time, title string, body string) templ.Component {
 		var templ_7745c5c3_Var16 string
 		templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 195, Col: 24}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 262, Col: 24}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 		if templ_7745c5c3_Err != nil {
@@ -441,7 +441,7 @@ func displayArticle(date time.Time, title string, body string) templ.Component {
 		var templ_7745c5c3_Var17 string
 		templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(date.Format("2006-01-02 15:04:05"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 196, Col: 69}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 263, Col: 69}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 		if templ_7745c5c3_Err != nil {
@@ -454,7 +454,7 @@ func displayArticle(date time.Time, title string, body string) templ.Component {
 		var templ_7745c5c3_Var18 string
 		templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(body)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 198, Col: 19}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 265, Col: 19}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 		if templ_7745c5c3_Err != nil {
@@ -493,7 +493,7 @@ func timeComponent() templ.Component {
 		var templ_7745c5c3_Var20 string
 		templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(time.Now().Format("2006-01-02 15:04:05"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 203, Col: 48}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components.templ`, Line: 270, Col: 48}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
 		if templ_7745c5c3_Err != nil {
