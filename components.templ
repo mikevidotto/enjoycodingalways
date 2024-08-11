@@ -22,19 +22,6 @@ templ fullPage(articles []Article) {
 
     @header()
 
-    // switch path {
-    //     case "/", "/index.html":
-    //         @HomeMain()
-    //     case "/projects.html":
-    //         @ProjectsMain()
-    //     case "/documentation.html":
-    //         @DocumentationMain()
-    //     case "/about.html":
-    //         @AboutMain()
-    //     default:
-
-    // }
-
     <main id="page-body">@HomeMain(articles)</main>
 
     @footer()
@@ -69,6 +56,35 @@ templ HomeMain(articles []Article) {
 
 templ DocumentationMain(articles []Article) {
     <style>
+    	#create-doc-container {
+		width: 100%;
+		height: 800px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	#doc-body {
+		width: 600px;
+		height: 300px;
+		maxlength: 500;
+	}
+	#htmx-wrapper {
+		height: 300px;
+		width: 300px;
+		display:flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items:center;
+	}
+	#doc-view-btn {
+		color: #426B1F;
+	}	
+
+	#doc-create-btn {
+		margin-bottom: 10px;
+		color: #426B1F;
+	}
         .HomeNav{
 		color:black;
 	}
@@ -86,12 +102,49 @@ templ DocumentationMain(articles []Article) {
     </style>
     
     <main>
+    <div id="create-doc-container">
+	    <div id="htmx-wrapper">
+		<a id="doc-create-btn" hx-post="/createdoc"
+		   hx-trigger="click"
+		   hx-target="#htmx-wrapper"
+		   hx-swap="outerHTML">
+			Write Documentation	
+		</a>
+		<a id="doc-view-btn" hx-post="/viewdoc"
+		   hx-trigger="click"
+		   hx-target="#htmx-wrapper"
+		   hx-swap="outerHTML">
+			View Documentation	
+		</a>
+ 	</div>
+    </div>
+    </main>
+}
+
+templ articlesList() {
         <ul id="articles-list">
             for _, a := range articles {
                 @displayArticle(a.date, a.title, a.body)
             }
         </ul>
-    </main>
+}
+
+templ CreateDoc() {
+<style>
+	#doc-form {
+		display:flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items:center;
+	}
+</style>
+	<form id="doc-form">
+		<label for="title">Title:</label><br>
+		<input type="text" id="doc-title" name="title"></input><br>
+		<label for="body">Body</label><br>
+		<textarea type="text-area" id="doc-body" name="body"></textarea><br>
+		<input type="submit" id="submit-doc" name="submit"></input><br>
+	</form>
 }
 
 templ ProjectsMain() {

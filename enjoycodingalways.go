@@ -19,6 +19,12 @@ type Article struct {
 	body  string
 }
 
+var articles1 = []Article{
+	{date: time.Now(), title: "title1", body: "body1body1body1body1body1body1body1"},
+	{date: time.Now(), title: "title2", body: "body2body2body2body2body2body2body2"},
+	{date: time.Now(), title: "title3", body: "body3body3body3body3body3body3body3"},
+}
+
 var articles []Article
 
 func main() {
@@ -34,8 +40,12 @@ func main() {
 	http.HandleFunc("/", handler)
 	http.HandleFunc("/projects", projectsHandler)
 	http.HandleFunc("/documentation", documentationHandler)
+	http.HandleFunc("/viewdoc", viewDocHandler)
+	http.HandleFunc("/createdoc", createDocHandler)
 	http.HandleFunc("/about", aboutHandler)
+	http.HandleFunc("/clicked", clickedHandler)
 
+	fmt.Println("Starting server...")
 	err := http.ListenAndServe("localhost:8081", nil)
 	if err != nil {
 		log.Fatal("Error with ListenAndServe:", err)
@@ -45,17 +55,18 @@ func main() {
 func handler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
-		webpage(articles).Render(context.Background(), w)
+		fmt.Println("Rendering homepage.")
+		webpage(articles1).Render(context.Background(), w)
 	case "POST":
-		fmt.Println("POST: rendering home.")
-		HomeMain(articles).Render(context.Background(), w)
+		fmt.Println("POST: rendering home page.")
+		HomeMain(articles1).Render(context.Background(), w)
 	}
 }
 
 func projectsHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "POST":
-		fmt.Println("POST: rendering projects.")
+		fmt.Println("POST: rendering projects page.")
 		ProjectsMain().Render(context.Background(), w)
 	}
 }
@@ -63,16 +74,38 @@ func projectsHandler(w http.ResponseWriter, r *http.Request) {
 func documentationHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "POST":
-		fmt.Println("POST: rendering documentation.")
-		DocumentationMain(articles).Render(context.Background(), w)
+		fmt.Println("POST: rendering documentation page.")
+		DocumentationMain(articles1).Render(context.Background(), w)
+	}
+}
+
+func viewDocHandler(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "POST":
+		fmt.Println("POST: rendering view documentation page.")
+		articlesList().Render(context.Background(), w)
+	}
+}
+
+func createDocHandler(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "POST":
+		fmt.Println("POST: rendering create documentation page.")
+		CreateDoc().Render(context.Background(), w)
 	}
 }
 
 func aboutHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "POST":
-		fmt.Println("POST: rendering about.")
+
+		fmt.Println("POST: rendering about page.")
 
 		AboutMain().Render(context.Background(), w)
 	}
+}
+
+func clickedHandler(w http.ResponseWriter, r *http.Request) {
+	//do something but not sure what yet.
+	fmt.Println("something was clicked.")
 }
