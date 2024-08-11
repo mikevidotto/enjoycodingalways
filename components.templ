@@ -55,7 +55,13 @@ templ HomeMain(articles []Article) {
 }
 
 templ DocumentationMain(articles []Article) {
-    <style>
+        <main>
+    	@createDocMenu()
+    </main>
+}
+
+templ createDocMenu() {
+<style>
     	#create-doc-container {
 		width: 100%;
 		height: 800px;
@@ -99,18 +105,18 @@ templ DocumentationMain(articles []Article) {
 	.AboutNav {
 		color:black;
 	}
-    </style>
+</style>
     
-    <main>
+
     <div id="create-doc-container">
 	    <div id="htmx-wrapper">
-		<a id="doc-create-btn" hx-post="/createdoc"
+		<a id="doc-create-btn" hx-get="/createdoc"
 		   hx-trigger="click"
 		   hx-target="#htmx-wrapper"
 		   hx-swap="outerHTML">
 			Write Documentation	
 		</a>
-		<a id="doc-view-btn" hx-post="/viewdoc"
+		<a id="doc-view-btn" hx-get="/viewdoc"
 		   hx-trigger="click"
 		   hx-target="#htmx-wrapper"
 		   hx-swap="outerHTML">
@@ -118,13 +124,12 @@ templ DocumentationMain(articles []Article) {
 		</a>
  	</div>
     </div>
-    </main>
 }
 
 templ articlesList() {
         <ul id="articles-list">
-            for _, a := range articles {
-                @displayArticle(a.date, a.title, a.body)
+            for i:=len(articles)-1; i >= 0; i--{
+                @displayArticle(articles[i].date, articles[i].title, articles[i].body)
             }
         </ul>
 }
@@ -138,12 +143,17 @@ templ CreateDoc() {
 		align-items:center;
 	}
 </style>
-	<form id="doc-form">
+	<form id="create-doc-form">
 		<label for="title">Title:</label><br>
 		<input type="text" id="doc-title" name="title"></input><br>
-		<label for="body">Body</label><br>
-		<textarea type="text-area" id="doc-body" name="body"></textarea><br>
-		<input type="submit" id="submit-doc" name="submit"></input><br>
+
+		<input type="text-area" id="doc-body" name="body"></input><br>
+
+		<button	hx-post="/createdoc"
+			hx-trigger="click"
+			hx-target="#create-doc-form"
+			hx-vals='{}'
+			hx-swap="outerHTML">Post Article</button><br>
 	</form>
 }
 

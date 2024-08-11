@@ -81,17 +81,24 @@ func documentationHandler(w http.ResponseWriter, r *http.Request) {
 
 func viewDocHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
-	case "POST":
-		fmt.Println("POST: rendering view documentation page.")
+	case "GET":
+		fmt.Println("GET: rendering view documentation page.")
 		articlesList().Render(context.Background(), w)
+	case "POST":
 	}
 }
 
 func createDocHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
-	case "POST":
-		fmt.Println("POST: rendering create documentation page.")
+	case "GET":
+		fmt.Println("GET: rendering create documentation page.")
 		CreateDoc().Render(context.Background(), w)
+	case "POST":
+		//		r.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+		fmt.Println("POST: posted article.")
+		newArticle := Article{title: r.FormValue("title"), body: r.FormValue("body"), date: time.Now()}
+		articles = append(articles, newArticle)
+		articlesList().Render(context.Background(), w)
 	}
 }
 
