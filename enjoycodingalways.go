@@ -45,8 +45,8 @@ func main() {
 	http.HandleFunc("/about", aboutHandler)
 	http.HandleFunc("/clicked", clickedHandler)
 
-	fmt.Println("Starting server...")
-	err := http.ListenAndServe("localhost:8081", nil)
+	fmt.Println("Starting server at localhost:5001...")
+	err := http.ListenAndServe("localhost:5001", nil)
 	if err != nil {
 		log.Fatal("Error with ListenAndServe:", err)
 	}
