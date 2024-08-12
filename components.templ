@@ -127,11 +127,13 @@ templ createDocMenu() {
 }
 
 templ articlesList() {
+	<div class="recent-article">
         <ul id="articles-list">
             for i:=len(articles)-1; i >= 0; i--{
                 @displayArticle(articles[i].date, articles[i].title, articles[i].body)
             }
         </ul>
+	</div>
 }
 
 templ CreateDoc() {
@@ -297,7 +299,7 @@ templ recentProject() {
 }
 
 templ recentArticle(article Article) {
-	<div class="recent-article">
+    <div class="recent-article">
         <h1>Latest Entry</h1>
 
         @displayArticle(article.date, article.title, article.body)
@@ -321,7 +323,7 @@ templ article() {
 
 templ displayArticle(date time.Time, title string, body string) {
     <article class="article">
-        <div>
+        <div id="article-container">
             <h1> { title } </h1>
             <h6> Date published: { date.Format("2006-01-02 15:04:05") } </h6>
         </div>
@@ -431,7 +433,6 @@ a {
 }
 
 .recent-project-container {
-    width: 100%; 
     display:flex; 
     flex-direction: column; 
     justify-content: center; 
@@ -440,7 +441,7 @@ a {
 }
 
 #recent-project {
-    width: 700px;
+    max-width: 700px;
     display:flex;
     flex-direction: column;
     align-items: center;
@@ -452,7 +453,10 @@ a {
     font-weight: 700;
 }
 
-#recent-project .product-image {
+.product-image {
+    width: 100%;
+    max-width: 100%;
+    display:block;
     border: 1px solid black;
 }
 
@@ -464,22 +468,27 @@ a {
 
 
 .recent-article {
-    padding: 50px;
+    max-width: 100%;
     display:flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-direction:column;
+    margin: 50px;
+
+    border: 1px solid yellow;
 }
 
 .article {
-    width: 700px;
+    max-width: 700px;
+    width: 100%;
     background-color: rgb(237, 237, 237);
     padding: 4px;
     border-radius: 10px;
+    border: 1px solid blue;
 }
 
-.article div {
+#article-container {
+    max-width:100%;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     background-color: #fff;
@@ -487,6 +496,7 @@ a {
     flex-direction:column;
     justify-content: center;
     align-items: flex-start;
+
     border:1px solid black;
 }
 
