@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    port: 5432:5432
+    environment:
+      POSTGRES_PASSWORD: eca
+      POSTGRES_USER: postgres
+      POSTGRES_DB: enjoycodingalways
+    volumes:
+      - pgdata:/var/lib/postgresql/data 
+ 
+ 
+volumes:
+  pgdata:
