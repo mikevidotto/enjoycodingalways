@@ -40,11 +40,15 @@ func getArticles(w http.ResponseWriter, db *sql.DB) {
 	}
 }
 
-func insertData(db *sql.DB, t Todo) (pk int) {
-	query := `INSERT INTO articles (task, done) VALUES ($1, $2) RETURNING id`
-	err := db.QueryRow(query, t.task, t.done).Scan(&pk)
+func insertData(a Article) (pk int) {
+	db, err := sql.Open("postgres", connStr)
+	defer db.Close()
+	checkError(err)
+
+	query := `INSERT INTO articles (date, title, body) VALUES ($1, $2, $3) RETURNING id`
+	err = db.QueryRow(query, a.date, a.title, a.body).Scan(&pk)
 	if err != nil {
-		fmt.Println("couldn't insert into todo.")
+		fmt.Println("couldn't insert into articles.")
 		log.Fatal(err)
 	}
 	return pk

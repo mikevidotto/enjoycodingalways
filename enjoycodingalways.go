@@ -11,7 +11,6 @@ import (
 
 const (
 	connStr = "user=postgres dbname=enjoycodingalways host=localhost port=5432 password=password sslmode=disable"
-	
 )
 
 type Project struct {
@@ -29,11 +28,6 @@ var articles []Article
 
 func main() {
 	createArticlesTable()
-
-	articles = append(articles, Article{date: time.Now(), title: "Default article", body: "this article was created upon entering the website."})
-	articles = append(articles, Article{date: time.Now(), title: "Article 2", body: "two two two two two two two two two two "})
-	articles = append(articles, Article{date: time.Now(), title: "Third article", body: "three. three. three. three. three. three. three. three. three. three. three. three. three. three. three. three. three. three. three. three. three. three. three. three. "})
-
 
 	for _, article := range articles {
 		fmt.Println(article.title)
@@ -133,13 +127,15 @@ func updatedList(w http.ResponseWriter) []Article {
 	defer rows.Close()
 
 	for rows.Next() {
+		var id int
 		var date time.Time 
 		var title string 
 		var body string 
 
-		err = rows.Scan(&date, &title, &body)
+		err = rows.Scan(&id, &date, &title, &body)
 		checkError(err)
 
+		updatedArticles = append(updatedArticles, Article{date:date, title:title, body:body})
 		_, err = fmt.Fprint(w, date, title, body)
 		checkError(err)
 	}
@@ -162,7 +158,8 @@ func createDocHandler(w http.ResponseWriter, r *http.Request) {
 		//		r.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 		fmt.Println("POST: posted article.")
 		newArticle := Article{title: r.FormValue("title"), body: r.FormValue("body"), date: time.Now()}
-		articles = append(articles, newArticle)
+		fmt.Println("insert data returned with exit status:", insertData(newArticle))
+		articles = updatedList(w)
 		articlesList().Render(context.Background(), w)
 	}
 }
